@@ -79,48 +79,68 @@ tasks:
     internal: true
     desc: Install Copybara if not already installed
     vars:
-      COPYBARA_VERSION: "v20250714"
       INSTALL_DIR: "/usr/local/bin"
     cmds:
       - |
         if command -v copybara &> /dev/null; then
           echo "✅ Copybara is already installed"
         else
-          echo "📦 Installing Copybara..."
+          echo "📦 Installing Copybara from source..."
           
-          # Detect OS and architecture
-          OS=$(uname -s | tr '[:upper:]' '[:lower:]')
-          ARCH=$(uname -m)
-          
-          case "$ARCH" in
-            x86_64) ARCH="amd64" ;;
-            aarch64|arm64) ARCH="arm64" ;;
-            *) echo "❌ Unsupported architecture: $ARCH"; exit 1 ;;
-          esac
-          
-          # Try downloading pre-built binary
-          BINARY_URL="https://github.com/google/copybara/releases/download/{{.COPYBARA_VERSION}}/copybara_${OS}_${ARCH}"
-          
-          echo "🔄 Downloading Copybara binary..."
-          if curl -L -f "$BINARY_URL" -o /tmp/copybara 2>/dev/null; then
-            echo "📦 Installing Copybara to {{.INSTALL_DIR}}..."
-            sudo mv /tmp/copybara {{.INSTALL_DIR}}/copybara
-            sudo chmod +x {{.INSTALL_DIR}}/copybara
-            echo "✅ Copybara installed successfully!"
+          # Check if Bazel is installed
+          if ! command -v bazel &> /dev/null; then
+            echo "🔄 Installing Bazel first..."
+            
+            # Install Bazel for Ubuntu/Debian
+            if command -v apt-get &> /dev/null; then
+              sudo apt-get update -qq
+              sudo apt-get install -y apt-transport-https curl gnupg
+              curl -fsSL https://bazel.build/bazel-release.pub.gpg | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/bazel.gpg > /dev/null
+              echo "deb [arch=amd64] https://storage.googleapis.com/bazel-apt stable jdk1.8" | sudo tee /etc/apt/sources.list.d/bazel.list
+              sudo apt-get update -qq
+              sudo apt-get install -y bazel
+            else
+              echo "❌ Unable to install Bazel automatically on this system"
+              echo "📝 Please install Bazel manually: https://bazel.build/install"
+              exit 1
+            fi
           else
-            echo "❌ Pre-built binary not available for $OS/$ARCH"
-            echo "📝 Please install Copybara manually:"
-            echo "   1. Install Bazel: https://bazel.build/install"
-            echo "   2. Clone repo: git clone https://github.com/google/copybara.git"
-            echo "   3. Build: cd copybara && bazel build //java/com/google/copybara"
-            echo "   4. Install: sudo cp bazel-bin/java/com/google/copybara/copybara {{.INSTALL_DIR}}/"
-            exit 1
+            echo "✅ Bazel is already installed"
           fi
+          
+          # Create temporary directory and build Copybara
+          TEMP_DIR=$(mktemp -d)
+          cd "$TEMP_DIR"
+          
+          echo "🔄 Cloning Copybara repository..."
+          git clone https://github.com/google/copybara.git
+          cd copybara
+          
+          echo "🔨 Building Copybara with Bazel (this may take a few minutes)..."
+          bazel build //java/com/google/copybara
+          
+          # Install the binary
+          echo "📦 Installing Copybara to {{.INSTALL_DIR}}..."
+          sudo cp -f bazel-bin/java/com/google/copybara/copybara {{.INSTALL_DIR}}/copybara
+          sudo chmod +x {{.INSTALL_DIR}}/copybara
+          
+          # Cleanup
+          cd /
+          rm -rf "$TEMP_DIR"
+          
+          echo "✅ Copybara installed successfully!"
         fi
 
   push:
     desc: Run Copybara mirror with force
     deps: [deps]
+    vars:
+      ROOT_DIR: "../../.."
+    cmds:
+      - cd {{.ROOT_DIR}} && copybara copy.bara.sky world-cli --force
+
+  docker-push:
+    desc: Run Copybara mirror with force (Docker - no deps needed)
     vars:
       ROOT_DIR: "../../.."
     cmds:

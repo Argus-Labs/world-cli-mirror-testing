@@ -19,7 +19,7 @@
 
 ## Overview
 
-Key features:
+Key Features:
 
 - **Create** — Initialize a new World Engine project based on [starter-game-template](https://github.com/Argus-Labs/starter-game-template)
 - **Dev Mode** — Run your game shard in dev mode (with editor support) for fast iteration
