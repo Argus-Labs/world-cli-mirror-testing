@@ -36,7 +36,8 @@ jobs:
 
             # Create a PR and auto-merge it
             gh pr create --fill --base main --head $BRANCH_NAME
-            gh pr merge --auto --delete-branch
+            gh pr merge --auto --squash --delete-branch
+
           else
             echo "==> No tidy changes detected"
           fi
