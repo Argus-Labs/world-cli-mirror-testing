@@ -2,28 +2,15 @@ version: "3"
 
 tasks:
   push:
-    desc: Run Copybara mirror with go mod tidy post-processing
+    desc: Run Copybara mirror with force
     vars:
       ROOT_DIR: "../../.."
-      TEMP_DIR: ".mirror-temp"
-      MIRROR_REMOTE: "git@github.com:Argus-Labs/world-cli-mirror-testing.git"
     cmds:
-      - echo "==> Running Copybara to mirror files"
-      - cd {{.ROOT_DIR}} && copybara copy.bara.sky world-cli
-      - echo "==> Post-processing - running go mod tidy"
-      - cd {{.ROOT_DIR}} && rm -rf {{.TEMP_DIR}}
-      - cd {{.ROOT_DIR}} && git clone {{.MIRROR_REMOTE}} {{.TEMP_DIR}}
-      - cd {{.ROOT_DIR}}/{{.TEMP_DIR}} && go mod tidy
-      - cd {{.ROOT_DIR}}/{{.TEMP_DIR}} && git add go.mod go.sum
-      - "cd {{.ROOT_DIR}}/{{.TEMP_DIR}} && git diff --cached --quiet || git commit -m 'chore: run go mod tidy'"
-      - cd {{.ROOT_DIR}}/{{.TEMP_DIR}} && git push
-      - cd {{.ROOT_DIR}} && rm -rf {{.TEMP_DIR}}
-      - echo "==> Mirror complete with go mod tidy"
+      - cd {{.ROOT_DIR}} && copybara copy.bara.sky world-cli --force
 
   dry-run:
     desc: Run Copybara dry-run to see what would be copied
     vars:
       ROOT_DIR: "../../.."
     cmds:
-      - echo "==> Running Copybara dry-run"
       - cd {{.ROOT_DIR}} && copybara copy.bara.sky world-cli --dry-run
