@@ -139,13 +139,6 @@ tasks:
     cmds:
       - cd {{.ROOT_DIR}} && copybara copy.bara.sky world-cli --force
 
-  docker-push:
-    desc: Run Copybara mirror with force (Docker - no deps needed)
-    vars:
-      ROOT_DIR: "../../.."
-    cmds:
-      - cd {{.ROOT_DIR}} && copybara copy.bara.sky world-cli --force
-
   dry-run:
     desc: Run Copybara dry-run to see what would be copied
     deps: [deps]
