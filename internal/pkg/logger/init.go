@@ -50,6 +50,10 @@ func init() {
 	log.Logger = lgr
 }
 
+func SetVerboseMode(verbose bool) {
+	VerboseMode = verbose
+}
+
 // PrintLogs print all stacked log.
 func PrintLogs() {
 	if VerboseMode {

@@ -7,6 +7,7 @@ import (
 	"github.com/argus-labs/go-ecs/internal/app/world-cli/models"
 )
 
+//nolint:gochecknoglobals // standard kong plugin struct
 var EvmCmdPlugin struct {
 	Evm *EvmCmd `cmd:"" group:"EVM Commands:" help:"Manage your EVM blockchain environment"`
 }

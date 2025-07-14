@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   tidy:
@@ -22,9 +25,19 @@ jobs:
         run: |
           go mod tidy
           if ! git diff --quiet; then
-            git config user.name "Mirror Bot"
-            git config user.email "mirror-bot@github"
-            git add go.mod go.sum
-            git commit -m "chore: tidy go.mod and go.sum"
-            git push
+            if [ "${{ github.event_name }}" = "pull_request" ]; then
+              echo "❌ go.mod or go.sum files are not tidy"
+              echo "Please run 'go mod tidy' locally and commit the changes"
+              git diff
+              exit 1
+            else
+              # Auto-fix on main branch pushes
+              git config user.name "Mirror Bot"
+              git config user.email "mirror-bot@github"
+              git add go.mod go.sum
+              git commit -m "chore: tidy go.mod and go.sum"
+              git push
+            fi
+          else
+            echo "✅ go.mod and go.sum are tidy."
           fi
