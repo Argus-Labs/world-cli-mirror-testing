@@ -1,0 +1,30 @@
+name: Tidy Go Mod
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  tidy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.22'
+
+      - name: Run go mod tidy
+        run: |
+          go mod tidy
+          if ! git diff --quiet; then
+            git config user.name "Mirror Bot"
+            git config user.email "mirror-bot@github"
+            git add go.mod go.sum
+            git commit -m "chore: tidy go.mod and go.sum"
+            git push
+          fi

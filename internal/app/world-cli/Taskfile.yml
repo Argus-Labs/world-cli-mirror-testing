@@ -19,6 +19,9 @@ includes:
   buf:
     taskfile: ./taskfiles/buf.yaml
     dir: .
+  mirror:
+    taskfile: ./taskfiles/mirror.yaml
+    dir: .
 
 tasks:
   clean:
