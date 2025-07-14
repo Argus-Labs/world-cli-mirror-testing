@@ -1,4 +1,4 @@
-module github.com/argus-labs/go-ecs
+module github.com/argus-labs/world-cli/v2
 
 go 1.24.0
 

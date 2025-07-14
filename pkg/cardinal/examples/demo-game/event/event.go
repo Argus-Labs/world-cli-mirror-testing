@@ -1,6 +1,6 @@
 package event
 
-import "github.com/argus-labs/go-ecs/pkg/cardinal"
+import "github.com/argus-labs/world-cli/v2/pkg/cardinal"
 
 // New player has joined the quadrant
 

@@ -1,6 +1,6 @@
 package cardinal
 
-import "github.com/argus-labs/go-ecs/internal/app/world-cli/interfaces"
+import "github.com/argus-labs/world-cli/v2/internal/app/world-cli/interfaces"
 
 var _ interfaces.CardinalHandler = &Handler{}
 

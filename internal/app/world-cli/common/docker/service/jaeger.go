@@ -3,7 +3,7 @@ package service
 import (
 	"fmt"
 
-	"github.com/argus-labs/go-ecs/internal/app/world-cli/common/config"
+	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/common/config"
 	"github.com/docker/docker/api/types/container"
 	"github.com/docker/docker/api/types/mount"
 )

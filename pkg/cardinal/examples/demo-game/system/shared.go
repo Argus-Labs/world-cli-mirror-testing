@@ -3,8 +3,8 @@ package system
 import (
 	"sync"
 
-	"github.com/argus-labs/go-ecs/pkg/cardinal/examples/demo-game/component"
-	"github.com/argus-labs/go-ecs/pkg/ecs"
+	"github.com/argus-labs/world-cli/v2/pkg/cardinal/examples/demo-game/component"
+	"github.com/argus-labs/world-cli/v2/pkg/ecs"
 )
 
 type PlayerSearch = ecs.Exact[struct {

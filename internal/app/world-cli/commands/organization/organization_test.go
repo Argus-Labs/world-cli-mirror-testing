@@ -5,12 +5,12 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/argus-labs/go-ecs/internal/app/world-cli/clients/api"
-	"github.com/argus-labs/go-ecs/internal/app/world-cli/commands/organization"
-	"github.com/argus-labs/go-ecs/internal/app/world-cli/commands/project"
-	"github.com/argus-labs/go-ecs/internal/app/world-cli/models"
-	"github.com/argus-labs/go-ecs/internal/app/world-cli/services/config"
-	"github.com/argus-labs/go-ecs/internal/app/world-cli/services/input"
+	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/clients/api"
+	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/commands/organization"
+	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/commands/project"
+	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/models"
+	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/services/config"
+	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/services/input"
 	"github.com/stretchr/testify/suite"
 )
 
