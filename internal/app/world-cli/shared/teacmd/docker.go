@@ -9,7 +9,7 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/shared/config"
+	"github.com/argus-labs/world-cli-mirror-testing/v2/internal/app/world-cli/shared/config"
 	"github.com/magefile/mage/sh"
 	"github.com/rotisserie/eris"
 )

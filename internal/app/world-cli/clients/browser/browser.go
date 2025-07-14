@@ -4,7 +4,7 @@ import (
 	"os/exec"
 	"runtime"
 
-	"github.com/argus-labs/world-cli/v2/internal/pkg/printer"
+	"github.com/argus-labs/world-cli-mirror-testing/v2/internal/pkg/printer"
 )
 
 // OpenURL opens the given URL in the default browser.

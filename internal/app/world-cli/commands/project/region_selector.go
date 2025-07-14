@@ -4,9 +4,9 @@ import (
 	"context"
 	"slices"
 
-	"github.com/argus-labs/world-cli/v2/internal/pkg/printer"
-	"github.com/argus-labs/world-cli/v2/internal/pkg/tea/component/multiselect"
-	"github.com/argus-labs/world-cli/v2/internal/pkg/tea/component/program"
+	"github.com/argus-labs/world-cli-mirror-testing/v2/internal/pkg/printer"
+	"github.com/argus-labs/world-cli-mirror-testing/v2/internal/pkg/tea/component/multiselect"
+	"github.com/argus-labs/world-cli-mirror-testing/v2/internal/pkg/tea/component/program"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/rotisserie/eris"
 )

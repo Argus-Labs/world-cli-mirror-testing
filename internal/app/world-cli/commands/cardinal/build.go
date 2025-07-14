@@ -5,19 +5,19 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/models"
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/shared/config"
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/shared/docker"
-	"github.com/argus-labs/world-cli/v2/internal/pkg/logger"
-	"github.com/argus-labs/world-cli/v2/internal/pkg/printer"
-	"github.com/argus-labs/world-cli/v2/internal/pkg/tea/style"
+	"github.com/argus-labs/world-cli-mirror-testing/v2/internal/app/world-cli/models"
+	"github.com/argus-labs/world-cli-mirror-testing/v2/internal/app/world-cli/shared/config"
+	"github.com/argus-labs/world-cli-mirror-testing/v2/internal/app/world-cli/shared/docker"
+	"github.com/argus-labs/world-cli-mirror-testing/v2/internal/pkg/logger"
+	"github.com/argus-labs/world-cli-mirror-testing/v2/internal/pkg/printer"
+	"github.com/argus-labs/world-cli-mirror-testing/v2/internal/pkg/tea/style"
 	"github.com/docker/docker/api/types/registry"
 	"github.com/rotisserie/eris"
 	"github.com/rs/zerolog"
 	"golang.org/x/sync/errgroup"
 )
 
-//nolint:gocognit // one function, one job. also depreciated soon!
+//nolint:gocognit // one function, one job. also depreciated soon
 func (h *Handler) Build(ctx context.Context, f models.BuildCardinalFlags) error {
 	cfg, err := config.GetConfig(&f.Config)
 	if err != nil {

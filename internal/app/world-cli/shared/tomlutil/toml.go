@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 
 	"github.com/BurntSushi/toml"
-	"github.com/argus-labs/world-cli/v2/internal/pkg/logger"
+	"github.com/argus-labs/world-cli-mirror-testing/v2/internal/pkg/logger"
 )
 
 // ReadTOML reads a TOML file and unmarshals it into the provided interface.

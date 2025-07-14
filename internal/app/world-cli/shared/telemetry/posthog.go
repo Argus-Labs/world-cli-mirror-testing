@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/shared/config"
+	"github.com/argus-labs/world-cli-mirror-testing/v2/internal/app/world-cli/shared/config"
 	"github.com/denisbrodbeck/machineid"
 	"github.com/posthog/posthog-go"
 	"github.com/rs/zerolog/log"

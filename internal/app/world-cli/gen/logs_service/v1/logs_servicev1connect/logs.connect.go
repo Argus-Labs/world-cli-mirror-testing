@@ -8,7 +8,7 @@ import (
 	connect "connectrpc.com/connect"
 	context "context"
 	errors "errors"
-	v1 "github.com/argus-labs/world-cli/v2/internal/app/world-cli/gen/logs_service/v1"
+	v1 "github.com/argus-labs/world-cli-mirror-testing/v2/internal/app/world-cli/gen/logs_service/v1"
 	http "net/http"
 	strings "strings"
 )

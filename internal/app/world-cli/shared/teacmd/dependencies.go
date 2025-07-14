@@ -3,8 +3,8 @@ package teacmd
 import (
 	"errors"
 
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/shared/dependency"
-	"github.com/argus-labs/world-cli/v2/internal/pkg/tea/style"
+	"github.com/argus-labs/world-cli-mirror-testing/v2/internal/app/world-cli/shared/dependency"
+	"github.com/argus-labs/world-cli-mirror-testing/v2/internal/pkg/tea/style"
 	tea "github.com/charmbracelet/bubbletea"
 )
 

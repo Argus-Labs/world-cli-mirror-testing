@@ -12,8 +12,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/argus-labs/world-cli/v2/internal/pkg/logger"
-	"github.com/argus-labs/world-cli/v2/internal/pkg/printer"
+	"github.com/argus-labs/world-cli-mirror-testing/v2/internal/pkg/logger"
+	"github.com/argus-labs/world-cli-mirror-testing/v2/internal/pkg/printer"
 	"github.com/goccy/go-json"
 	"github.com/rotisserie/eris"
 	"github.com/tidwall/gjson"

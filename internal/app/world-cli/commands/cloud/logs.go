@@ -6,10 +6,10 @@ import (
 	"strconv"
 
 	"connectrpc.com/connect"
-	logsv1 "github.com/argus-labs/world-cli/v2/internal/app/world-cli/gen/logs_service/v1"
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/gen/logs_service/v1/logs_servicev1connect"
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/models"
-	"github.com/argus-labs/world-cli/v2/internal/pkg/printer"
+	logsv1 "github.com/argus-labs/world-cli-mirror-testing/v2/internal/app/world-cli/gen/logs_service/v1"
+	"github.com/argus-labs/world-cli-mirror-testing/v2/internal/app/world-cli/gen/logs_service/v1/logs_servicev1connect"
+	"github.com/argus-labs/world-cli-mirror-testing/v2/internal/app/world-cli/models"
+	"github.com/argus-labs/world-cli-mirror-testing/v2/internal/pkg/printer"
 	"github.com/rotisserie/eris"
 )
 

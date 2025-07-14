@@ -4,7 +4,7 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/argus-labs/world-cli/v2/internal/pkg/printer"
+	"github.com/argus-labs/world-cli-mirror-testing/v2/internal/pkg/printer"
 	"github.com/rotisserie/eris"
 )
 

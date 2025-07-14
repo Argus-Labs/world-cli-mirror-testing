@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/shared/editor"
+	"github.com/argus-labs/world-cli-mirror-testing/v2/internal/app/world-cli/shared/editor"
 	"github.com/rotisserie/eris"
 	"golang.org/x/sync/errgroup"
 )

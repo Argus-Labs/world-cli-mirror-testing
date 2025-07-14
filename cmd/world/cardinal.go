@@ -3,9 +3,9 @@ package main
 import (
 	"context"
 
-	cmdsetup "github.com/argus-labs/world-cli/v2/internal/app/world-cli/controllers/cmd_setup"
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/models"
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/shared/dependency"
+	cmdsetup "github.com/argus-labs/world-cli-mirror-testing/v2/internal/app/world-cli/controllers/cmd_setup"
+	"github.com/argus-labs/world-cli-mirror-testing/v2/internal/app/world-cli/models"
+	"github.com/argus-labs/world-cli-mirror-testing/v2/internal/app/world-cli/shared/dependency"
 )
 
 //nolint:gochecknoglobals // standard kong plugin struct

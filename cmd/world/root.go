@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/alecthomas/kong"
-	cmdsetup "github.com/argus-labs/world-cli/v2/internal/app/world-cli/controllers/cmd_setup"
+	cmdsetup "github.com/argus-labs/world-cli-mirror-testing/v2/internal/app/world-cli/controllers/cmd_setup"
 )
 
 //nolint:gochecknoglobals // standard kong plugin struct

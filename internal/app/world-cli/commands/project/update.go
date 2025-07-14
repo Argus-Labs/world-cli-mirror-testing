@@ -3,10 +3,10 @@ package project
 import (
 	"context"
 
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/clients/api"
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/models"
-	"github.com/argus-labs/world-cli/v2/internal/pkg/logger"
-	"github.com/argus-labs/world-cli/v2/internal/pkg/printer"
+	"github.com/argus-labs/world-cli-mirror-testing/v2/internal/app/world-cli/clients/api"
+	"github.com/argus-labs/world-cli-mirror-testing/v2/internal/app/world-cli/models"
+	"github.com/argus-labs/world-cli-mirror-testing/v2/internal/pkg/logger"
+	"github.com/argus-labs/world-cli-mirror-testing/v2/internal/pkg/printer"
 	"github.com/rotisserie/eris"
 )
 

@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/argus-labs/world-cli/v2/internal/pkg/logger"
+	"github.com/argus-labs/world-cli-mirror-testing/v2/internal/pkg/logger"
 	"github.com/magefile/mage/sh"
 	"github.com/pelletier/go-toml/v2"
 	"github.com/rotisserie/eris"

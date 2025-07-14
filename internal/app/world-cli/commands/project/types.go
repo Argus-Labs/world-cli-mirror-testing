@@ -3,11 +3,11 @@ package project
 import (
 	"context"
 
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/clients/api"
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/clients/repo"
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/interfaces"
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/services/config"
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/services/input"
+	"github.com/argus-labs/world-cli-mirror-testing/v2/internal/app/world-cli/clients/api"
+	"github.com/argus-labs/world-cli-mirror-testing/v2/internal/app/world-cli/clients/repo"
+	"github.com/argus-labs/world-cli-mirror-testing/v2/internal/app/world-cli/interfaces"
+	"github.com/argus-labs/world-cli-mirror-testing/v2/internal/app/world-cli/services/config"
+	"github.com/argus-labs/world-cli-mirror-testing/v2/internal/app/world-cli/services/input"
 )
 
 const nilUUID = "00000000-0000-0000-0000-000000000000"

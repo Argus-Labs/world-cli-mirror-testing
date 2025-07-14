@@ -1,9 +1,9 @@
 package user
 
 import (
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/clients/api"
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/interfaces"
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/services/input"
+	"github.com/argus-labs/world-cli-mirror-testing/v2/internal/app/world-cli/clients/api"
+	"github.com/argus-labs/world-cli-mirror-testing/v2/internal/app/world-cli/interfaces"
+	"github.com/argus-labs/world-cli-mirror-testing/v2/internal/app/world-cli/services/input"
 )
 
 // Interface guard.

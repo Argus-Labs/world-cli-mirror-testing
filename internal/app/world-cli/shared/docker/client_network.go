@@ -3,9 +3,9 @@ package docker
 import (
 	"context"
 
-	"github.com/argus-labs/world-cli/v2/internal/pkg/tea/component/multispinner"
-	"github.com/argus-labs/world-cli/v2/internal/pkg/tea/component/program"
-	"github.com/argus-labs/world-cli/v2/internal/pkg/tea/style"
+	"github.com/argus-labs/world-cli-mirror-testing/v2/internal/pkg/tea/component/multispinner"
+	"github.com/argus-labs/world-cli-mirror-testing/v2/internal/pkg/tea/component/program"
+	"github.com/argus-labs/world-cli-mirror-testing/v2/internal/pkg/tea/style"
 	"github.com/docker/docker/api/types/network"
 	"github.com/rotisserie/eris"
 )

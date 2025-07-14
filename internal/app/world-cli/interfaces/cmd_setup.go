@@ -3,7 +3,7 @@ package interfaces
 import (
 	"context"
 
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/models"
+	"github.com/argus-labs/world-cli-mirror-testing/v2/internal/app/world-cli/models"
 )
 
 // CommandSetupController defines the interface for command setup operations.
