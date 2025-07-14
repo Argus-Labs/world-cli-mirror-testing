@@ -1,8 +1,126 @@
 version: "3"
 
 tasks:
+  deps:
+    desc: Install dependencies (Java and Copybara) if not already installed
+    cmds:
+      - task: _check_java
+      - task: _install_copybara
+
+  _check_java:
+    internal: true
+    desc: Check and install Java if not already installed
+    cmds:
+      - |
+        if command -v java &> /dev/null; then
+          echo "✅ Java is already installed: $(java -version 2>&1 | head -n 1)"
+        else
+          echo "📦 Java not found, installing..."
+          
+          # Detect OS
+          OS=$(uname -s | tr '[:upper:]' '[:lower:]')
+          
+          case "$OS" in
+            linux)
+              # Check if we're in GitHub Actions or similar CI
+              if [ -n "$GITHUB_ACTIONS" ] || [ -n "$CI" ]; then
+                echo "🔄 Installing Java in CI environment..."
+                sudo apt-get update -qq
+                sudo apt-get install -y openjdk-11-jdk
+              else
+                # Try to detect the Linux distribution
+                if command -v apt-get &> /dev/null; then
+                  echo "🔄 Installing Java on Debian/Ubuntu..."
+                  sudo apt-get update
+                  sudo apt-get install -y openjdk-11-jdk
+                elif command -v yum &> /dev/null; then
+                  echo "🔄 Installing Java on RHEL/CentOS..."
+                  sudo yum install -y java-11-openjdk-devel
+                elif command -v dnf &> /dev/null; then
+                  echo "🔄 Installing Java on Fedora..."
+                  sudo dnf install -y java-11-openjdk-devel
+                else
+                  echo "❌ Unable to auto-install Java on this Linux distribution"
+                  echo "📝 Please install Java 11+ manually and retry"
+                  exit 1
+                fi
+              fi
+              ;;
+            darwin)
+              if command -v brew &> /dev/null; then
+                echo "🔄 Installing Java on macOS via Homebrew..."
+                brew install openjdk@11
+                # Add to PATH for current session
+                export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
+              else
+                echo "❌ Homebrew not found on macOS"
+                echo "📝 Please install Homebrew first: /bin/bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\""
+                echo "📝 Or download Java from: https://adoptium.net/"
+                exit 1
+              fi
+              ;;
+            *)
+              echo "❌ Unsupported operating system: $OS"
+              echo "📝 Please install Java 11+ manually from: https://adoptium.net/"
+              exit 1
+              ;;
+          esac
+          
+          # Verify installation
+          if command -v java &> /dev/null; then
+            echo "✅ Java installed successfully: $(java -version 2>&1 | head -n 1)"
+          else
+            echo "❌ Java installation failed"
+            exit 1
+          fi
+        fi
+
+  _install_copybara:
+    internal: true
+    desc: Install Copybara if not already installed
+    vars:
+      COPYBARA_VERSION: "v20250714"
+      INSTALL_DIR: "/usr/local/bin"
+    cmds:
+      - |
+        if command -v copybara &> /dev/null; then
+          echo "✅ Copybara is already installed"
+        else
+          echo "📦 Installing Copybara..."
+          
+          # Detect OS and architecture
+          OS=$(uname -s | tr '[:upper:]' '[:lower:]')
+          ARCH=$(uname -m)
+          
+          case "$ARCH" in
+            x86_64) ARCH="amd64" ;;
+            aarch64|arm64) ARCH="arm64" ;;
+            *) echo "❌ Unsupported architecture: $ARCH"; exit 1 ;;
+          esac
+          
+          # Try downloading pre-built binary
+          BINARY_URL="https://github.com/google/copybara/releases/download/{{.COPYBARA_VERSION}}/copybara_${OS}_${ARCH}"
+          
+          echo "🔄 Downloading Copybara binary..."
+          if curl -L -f "$BINARY_URL" -o /tmp/copybara 2>/dev/null; then
+            echo "📦 Installing Copybara to {{.INSTALL_DIR}}..."
+            sudo mv /tmp/copybara {{.INSTALL_DIR}}/copybara
+            sudo chmod +x {{.INSTALL_DIR}}/copybara
+            echo "✅ Copybara installed successfully!"
+          else
+            echo "❌ Pre-built binary not available for $OS/$ARCH"
+            echo "📝 Please install Copybara manually:"
+            echo "   1. Install Bazel: https://bazel.build/install"
+            echo "   2. Clone repo: git clone https://github.com/google/copybara.git"
+            echo "   3. Build: cd copybara && bazel build //java/com/google/copybara"
+            echo "   4. Install: sudo cp bazel-bin/java/com/google/copybara/copybara {{.INSTALL_DIR}}/"
+            exit 1
+          fi
+        fi
+
   push:
     desc: Run Copybara mirror with force
+    deps: [deps]
     vars:
       ROOT_DIR: "../../.."
     cmds:
@@ -10,6 +128,7 @@ tasks:
 
   dry-run:
     desc: Run Copybara dry-run to see what would be copied
+    deps: [deps]
     vars:
       ROOT_DIR: "../../.."
     cmds:
