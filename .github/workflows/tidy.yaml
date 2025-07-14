@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   tidy:
@@ -12,6 +15,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
 
       - name: Setup Go
         uses: actions/setup-go@v4
@@ -22,9 +28,32 @@ jobs:
         run: |
           go mod tidy
           if ! git diff --quiet; then
-            git config user.name "Mirror Bot"
-            git config user.email "mirror-bot@github"
-            git add go.mod go.sum
-            git commit -m "chore: tidy go.mod and go.sum"
-            git push
+            # Check if this is a mirror update PR (auto-fix) or regular PR (fail)
+            if [ "${{ github.event_name }}" = "pull_request" ] && [[ "${{ github.head_ref }}" == mirror-update-* ]]; then
+              echo "🔧 Auto-fixing go.mod/go.sum for mirror update PR"
+              
+              # Ensure we're on the actual branch, not detached HEAD
+              git checkout -B "${{ github.head_ref }}" || git checkout "${{ github.head_ref }}"
+              
+              git config user.name "Mirror Bot"
+              git config user.email "mirror-bot@github"
+              git add go.mod go.sum
+              git commit -m "chore: tidy go.mod and go.sum for mirror update"
+              git push origin "${{ github.head_ref }}"
+              echo "✅ go.mod and go.sum have been tidied and committed"
+            elif [ "${{ github.event_name }}" = "pull_request" ]; then
+              echo "❌ go.mod or go.sum files are not tidy"
+              echo "Please run 'go mod tidy' locally and commit the changes"
+              git diff
+              exit 1
+            else
+              # Auto-fix on main branch pushes
+              git config user.name "Mirror Bot"
+              git config user.email "mirror-bot@github"
+              git add go.mod go.sum
+              git commit -m "chore: tidy go.mod and go.sum"
+              git push
+            fi
+          else
+            echo "✅ go.mod and go.sum are tidy."
           fi
