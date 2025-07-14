@@ -1,6 +1,6 @@
 package evm
 
-import "github.com/argus-labs/world-cli/v2/internal/app/world-cli/interfaces"
+import "github.com/argus-labs/go-ecs/internal/app/world-cli/interfaces"
 
 var _ interfaces.EVMHandler = (*Handler)(nil)
 

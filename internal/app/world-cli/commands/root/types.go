@@ -1,10 +1,10 @@
 package root
 
 import (
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/clients/api"
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/clients/browser"
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/interfaces"
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/services/config"
+	"github.com/argus-labs/go-ecs/internal/app/world-cli/clients/api"
+	"github.com/argus-labs/go-ecs/internal/app/world-cli/clients/browser"
+	"github.com/argus-labs/go-ecs/internal/app/world-cli/interfaces"
+	"github.com/argus-labs/go-ecs/internal/app/world-cli/services/config"
 )
 
 // Interface guard.

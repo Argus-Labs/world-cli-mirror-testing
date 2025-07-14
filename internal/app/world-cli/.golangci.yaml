@@ -222,7 +222,7 @@ formatters:
       # with the given prefixes are grouped after 3rd-party packages.
       # Default: []
       local-prefixes:
-        - github.com/argus-labs/world-cli/v2
+        - github.com/argus-labs/go-ecs
 
     golines:
       # Target maximum line length.

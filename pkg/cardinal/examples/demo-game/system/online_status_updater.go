@@ -3,10 +3,10 @@ package system
 import (
 	"time"
 
-	"github.com/argus-labs/world-cli/v2/pkg/cardinal"
-	"github.com/argus-labs/world-cli/v2/pkg/cardinal/examples/demo-game/component"
-	"github.com/argus-labs/world-cli/v2/pkg/cardinal/examples/demo-game/event"
-	"github.com/argus-labs/world-cli/v2/pkg/ecs"
+	"github.com/argus-labs/go-ecs/pkg/cardinal"
+	"github.com/argus-labs/go-ecs/pkg/cardinal/examples/demo-game/component"
+	"github.com/argus-labs/go-ecs/pkg/cardinal/examples/demo-game/event"
+	"github.com/argus-labs/go-ecs/pkg/ecs"
 )
 
 type OnlineStatusUpdaterState struct {

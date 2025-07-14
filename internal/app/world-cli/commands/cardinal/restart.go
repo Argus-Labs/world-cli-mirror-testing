@@ -3,9 +3,9 @@ package cardinal
 import (
 	"context"
 
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/common/config"
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/common/docker"
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/models"
+	"github.com/argus-labs/go-ecs/internal/app/world-cli/common/config"
+	"github.com/argus-labs/go-ecs/internal/app/world-cli/common/docker"
+	"github.com/argus-labs/go-ecs/internal/app/world-cli/models"
 )
 
 func (h *Handler) Restart(ctx context.Context, f models.RestartCardinalFlags) error {

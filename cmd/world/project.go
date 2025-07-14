@@ -3,8 +3,8 @@ package main
 import (
 	"context"
 
-	cmdsetup "github.com/argus-labs/world-cli/v2/internal/app/world-cli/controllers/cmd_setup"
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/models"
+	cmdsetup "github.com/argus-labs/go-ecs/internal/app/world-cli/controllers/cmd_setup"
+	"github.com/argus-labs/go-ecs/internal/app/world-cli/models"
 )
 
 //nolint:gochecknoglobals // standard kong plugin struct

@@ -3,7 +3,7 @@ package steps
 import (
 	"fmt"
 
-	"github.com/argus-labs/world-cli/v2/internal/pkg/tea/style"
+	"github.com/argus-labs/go-ecs/internal/pkg/tea/style"
 	"github.com/charmbracelet/bubbles/spinner"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"

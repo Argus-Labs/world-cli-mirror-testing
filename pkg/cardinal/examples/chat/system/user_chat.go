@@ -3,9 +3,9 @@ package system
 import (
 	"time"
 
-	"github.com/argus-labs/world-cli/v2/pkg/cardinal"
-	"github.com/argus-labs/world-cli/v2/pkg/cardinal/examples/chat/component"
-	"github.com/argus-labs/world-cli/v2/pkg/cardinal/examples/chat/event"
+	"github.com/argus-labs/go-ecs/pkg/cardinal"
+	"github.com/argus-labs/go-ecs/pkg/cardinal/examples/chat/component"
+	"github.com/argus-labs/go-ecs/pkg/cardinal/examples/chat/event"
 )
 
 type UserChatCommand struct {

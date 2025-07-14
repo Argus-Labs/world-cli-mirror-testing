@@ -1,9 +1,9 @@
 package system
 
 import (
-	"github.com/argus-labs/world-cli/v2/pkg/cardinal/examples/basic/component"
+	"github.com/argus-labs/go-ecs/pkg/cardinal/examples/basic/component"
 
-	"github.com/argus-labs/world-cli/v2/pkg/ecs"
+	"github.com/argus-labs/go-ecs/pkg/ecs"
 )
 
 type PlayerSearch = ecs.Exact[struct {

@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/argus-labs/world-cli/v2/pkg/cardinal"
-	"github.com/argus-labs/world-cli/v2/pkg/cardinal/examples/demo-game/system"
+	"github.com/argus-labs/go-ecs/pkg/cardinal"
+	"github.com/argus-labs/go-ecs/pkg/cardinal/examples/demo-game/system"
 )
 
 func main() {

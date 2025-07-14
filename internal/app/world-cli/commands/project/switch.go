@@ -5,9 +5,9 @@ import (
 	"strconv"
 	"strings"
 
-	cmdsetup "github.com/argus-labs/world-cli/v2/internal/app/world-cli/controllers/cmd_setup"
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/models"
-	"github.com/argus-labs/world-cli/v2/internal/pkg/printer"
+	cmdsetup "github.com/argus-labs/go-ecs/internal/app/world-cli/controllers/cmd_setup"
+	"github.com/argus-labs/go-ecs/internal/app/world-cli/models"
+	"github.com/argus-labs/go-ecs/internal/pkg/printer"
 	"github.com/rotisserie/eris"
 )
 

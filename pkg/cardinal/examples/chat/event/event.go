@@ -3,7 +3,7 @@ package event
 import (
 	"time"
 
-	"github.com/argus-labs/world-cli/v2/pkg/cardinal"
+	"github.com/argus-labs/go-ecs/pkg/cardinal"
 )
 
 // Someone typed a message in chat

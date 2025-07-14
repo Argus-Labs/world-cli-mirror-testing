@@ -6,7 +6,7 @@ import (
 	"path"
 	"path/filepath"
 
-	"github.com/argus-labs/world-cli/v2/internal/pkg/logger"
+	"github.com/argus-labs/go-ecs/internal/pkg/logger"
 	"github.com/pelletier/go-toml"
 	"github.com/rotisserie/eris"
 )
