@@ -8,11 +8,12 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/common"
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/common/config"
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/common/docker"
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/common/docker/service"
 	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/models"
+	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/shared"
+	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/shared/config"
+	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/shared/docker"
+	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/shared/docker/service"
+	"github.com/argus-labs/world-cli/v2/internal/pkg/logger"
 	"github.com/argus-labs/world-cli/v2/internal/pkg/printer"
 	"github.com/argus-labs/world-cli/v2/internal/pkg/tea/style"
 	"github.com/rotisserie/eris"
@@ -70,11 +71,11 @@ func (h *Handler) Start(ctx context.Context, f models.StartCardinalFlags) error 
 	// Print out service addresses
 	printServiceAddress("Redis", cfg.DockerEnv["REDIS_ADDRESS"])
 	// this can be changed in code by calling WithPort() on world options, but we have no way to detect that
-	printServiceAddress("Cardinal", fmt.Sprintf("localhost:%s", CardinalPort))
+	printServiceAddress("Cardinal", fmt.Sprintf("localhost:%s", CardPort))
 	var editorPort int
 	if f.Editor { //nolint:nestif // this is not overly complex
 		if f.EditorPort == "auto" {
-			editorPort, err = common.FindUnusedPort(cePortStart, cePortEnd)
+			editorPort, err = shared.FindUnusedPort(cePortStart, cePortEnd)
 			if err != nil {
 				return eris.Wrap(err, "Failed to find an unused port for Cardinal Editor")
 			}
@@ -105,7 +106,11 @@ func (h *Handler) Start(ctx context.Context, f models.StartCardinalFlags) error 
 	if err != nil {
 		return err
 	}
-	defer dockerClient.Close()
+	defer func() {
+		if err := dockerClient.Close(); err != nil {
+			logger.Error("Failed to close docker client", "error", err)
+		}
+	}()
 
 	services := getServices(cfg)
 

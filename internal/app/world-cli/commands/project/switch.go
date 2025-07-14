@@ -7,6 +7,7 @@ import (
 
 	cmdsetup "github.com/argus-labs/world-cli/v2/internal/app/world-cli/controllers/cmd_setup"
 	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/models"
+	"github.com/argus-labs/world-cli/v2/internal/pkg/logger"
 	"github.com/argus-labs/world-cli/v2/internal/pkg/printer"
 	"github.com/rotisserie/eris"
 )
@@ -153,9 +154,13 @@ func (h *Handler) handleSingleProject(
 	project models.Project,
 	org models.Organization,
 ) error {
-	h.saveToConfig(&project)
-	h.showProjectList(ctx, project, org)
-	return nil
+	err := h.saveToConfig(&project)
+	if err != nil {
+		// error here is not important, can continue without config saved
+		logger.Error("Failed to save project to config", "error", err)
+	}
+	err = h.showProjectList(ctx, project, org)
+	return err
 }
 
 // handleMultipleProjects handles the case when there are multiple projects.
@@ -168,7 +173,11 @@ func (h *Handler) handleMultipleProjects(
 		return eris.Wrap(err, "Failed to select project")
 	}
 
-	h.saveToConfig(&project)
+	err = h.saveToConfig(&project)
+	if err != nil {
+		// error here is not important, can continue without config saved
+		logger.Error("Failed to save project to config", "error", err)
+	}
 	return nil
 }
 
@@ -196,6 +205,10 @@ func (h *Handler) handleNoProjects(ctx context.Context, org models.Organization)
 		return eris.Wrap(err, "Failed to create project")
 	}
 
-	h.saveToConfig(&project)
+	err = h.saveToConfig(&project)
+	if err != nil {
+		// error here is not important, can continue without config saved
+		logger.Error("Failed to save project to config", "error", err)
+	}
 	return nil
 }

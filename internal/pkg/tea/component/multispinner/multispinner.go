@@ -10,7 +10,7 @@ import (
 	"github.com/charmbracelet/lipgloss"
 )
 
-// Spinner is a component that displays a spinner while updating the logs.
+// MultiSpinner is a component that displays a spinner while updating the logs.
 type MultiSpinner struct {
 	processMap  *ProcessStateMap // need to be pointer because of the mutex
 	processList []string         // list of process names

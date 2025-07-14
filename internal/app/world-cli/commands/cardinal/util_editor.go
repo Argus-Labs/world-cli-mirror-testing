@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/common/editor"
+	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/shared/editor"
 	"github.com/rotisserie/eris"
 	"golang.org/x/sync/errgroup"
 )
@@ -21,7 +21,7 @@ func startCardinalEditor(ctx context.Context, rootDir string, gameDir string, po
 	}
 
 	// Create a new HTTP server
-	fs := http.FileServer(http.Dir(filepath.Join(rootDir, editor.EditorDir)))
+	fs := http.FileServer(http.Dir(filepath.Join(rootDir, editor.Dir)))
 	http.Handle("/", fs)
 	server := &http.Server{
 		Addr:        fmt.Sprintf(":%d", port),

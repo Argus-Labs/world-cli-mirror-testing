@@ -35,6 +35,8 @@ func NewTestService(input io.Reader, output io.Writer) Service {
 }
 
 // Prompt displays a prompt and returns user input.
+//
+//nolint:gocognit // This function is complex but separated into smaller functions would make it harder to read.
 func (s *Service) Prompt(ctx context.Context, prompt, defaultValue string) (string, error) {
 	select {
 	case <-ctx.Done():
@@ -69,6 +71,8 @@ func (s *Service) Prompt(ctx context.Context, prompt, defaultValue string) (stri
 }
 
 // Confirm asks for Y/n confirmation with default.
+//
+//nolint:gocognit // This function is complex but separated into smaller functions would make it harder to read.
 func (s *Service) Confirm(ctx context.Context, prompt, defaultValue string) (bool, error) {
 	for {
 		select {
@@ -196,7 +200,10 @@ func (s *Service) printf(format string, args ...interface{}) {
 		printer.Info(fmt.Sprintf(format, args...))
 		return
 	}
-	fmt.Fprintf(output, format, args...)
+	_, err := fmt.Fprintf(output, format, args...)
+	if err != nil {
+		panic(eris.Wrap(err, "input service failed to print line"))
+	}
 }
 
 func (s *Service) println(text string) {
@@ -205,7 +212,10 @@ func (s *Service) println(text string) {
 		printer.Infoln(text)
 		return
 	}
-	fmt.Fprintln(output, text)
+	_, err := fmt.Fprintln(output, text)
+	if err != nil {
+		panic(eris.Wrap(err, "input service failed to print line"))
+	}
 }
 
 func (s *Service) moveCursorUp(lines int) {

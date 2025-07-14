@@ -19,11 +19,11 @@ import (
 	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/commands/project"
 	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/commands/root"
 	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/commands/user"
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/common/config"
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/common/telemetry"
 	cmdsetup "github.com/argus-labs/world-cli/v2/internal/app/world-cli/controllers/cmd_setup"
 	cfgService "github.com/argus-labs/world-cli/v2/internal/app/world-cli/services/config"
 	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/services/input"
+	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/shared/config"
+	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/shared/telemetry"
 	"github.com/argus-labs/world-cli/v2/internal/pkg/logger"
 	"github.com/argus-labs/world-cli/v2/internal/pkg/printer"
 	"github.com/charmbracelet/lipgloss"
@@ -189,7 +189,7 @@ func getEnvAndVersion() (string, string) {
 	return env, version
 }
 
-// SetKongParents recursively sets Parent pointers for Kong CLI structs.
+// SetKongParentsAndContext recursively sets Parent pointers for Kong CLI structs.
 func SetKongParentsAndContext(ctx context.Context, dependencies cmdsetup.Dependencies, cmd interface{}) {
 	setParentsAndContext(ctx, dependencies, reflect.ValueOf(cmd), reflect.ValueOf(nil))
 }

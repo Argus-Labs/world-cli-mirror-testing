@@ -57,7 +57,8 @@ func (s *RootTestSuite) TestVersionCommand() {
 
 	// Test version with check - might fail due to network, but shouldn't panic
 	s.NotPanics(func() {
-		handler.Version(true)
+		err := handler.Version(true)
+		s.Require().NoError(err)
 	})
 }
 
@@ -97,8 +98,7 @@ func (s *RootTestSuite) TestLogin_Success() {
 	//nolint:lll // test lint error
 	loginToken := models.LoginToken{
 		Status: "success",
-		//noinspection HardCodedPassword
-		JWT: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSm9obiBEb2UiLCJpZCI6IjEyMzQ1IiwiaWF0IjoxNTE2MjM5MDIyLCJleHAiOjk5OTk5OTk5OTksInN1YiI6IjEyMzQ1IiwiZW1haWwiOiJqb2huQGV4YW1wbGUuY29tIn0.invalid", // Mock JWT
+		JWT:    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSm9obiBEb2UiLCJpZCI6IjEyMzQ1IiwiaWF0IjoxNTE2MjM5MDIyLCJleHAiOjk5OTk5OTk5OTksInN1YiI6IjEyMzQ1IiwiZW1haWwiOiJqb2huQGV4YW1wbGUuY29tIn0.invalid", // Mock JWT
 	}
 
 	user := models.User{

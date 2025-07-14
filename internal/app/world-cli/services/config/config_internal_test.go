@@ -6,8 +6,8 @@ import (
 	"path/filepath"
 	"testing"
 
-	commonConfig "github.com/argus-labs/world-cli/v2/internal/app/world-cli/common/config"
 	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/models"
+	commonConfig "github.com/argus-labs/world-cli/v2/internal/app/world-cli/shared/config"
 	"github.com/stretchr/testify/suite"
 )
 

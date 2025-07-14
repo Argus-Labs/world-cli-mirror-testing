@@ -5,6 +5,7 @@ import (
 
 	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/clients/api"
 	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/models"
+	"github.com/argus-labs/world-cli/v2/internal/pkg/logger"
 	"github.com/argus-labs/world-cli/v2/internal/pkg/printer"
 	"github.com/rotisserie/eris"
 )
@@ -65,7 +66,11 @@ func (h *Handler) Update(
 		return eris.Wrap(err, "Failed to update project")
 	}
 
-	h.configService.RemoveKnownProject(project.ID, project.OrgID)
+	// Error is not important here because its a fail to save which is printed to terminal and logged
+	err = h.configService.RemoveKnownProject(project.ID, project.OrgID)
+	if err != nil {
+		logger.Error(err)
+	}
 
 	displayProjectDetails(&prj)
 	printer.NewLine(1)

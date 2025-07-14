@@ -9,6 +9,7 @@ import (
 	"os/exec"
 	"strings"
 
+	"github.com/argus-labs/world-cli/v2/internal/pkg/logger"
 	"github.com/rotisserie/eris"
 )
 
@@ -45,25 +46,25 @@ func (c *Client) FindGitPathAndURL() (string, string, error) {
 		}
 	}
 
-	url := strings.TrimSpace(string(urlData))
-	if url == "" {
+	gitURL := strings.TrimSpace(string(urlData))
+	if gitURL == "" {
 		return "", "", ErrNotInGitRepository
 	}
-	url = replaceLast(url, ".git", "")
+	gitURL = replaceLast(gitURL, ".git", "")
 	workingDir, err := os.Getwd()
 	if err != nil {
-		return "", url, err
+		return "", gitURL, err
 	}
 	root, err := exec.Command("git", "rev-parse", "--show-toplevel").Output()
 	if err != nil {
-		return "", url, err
+		return "", gitURL, err
 	}
 	rootPath := strings.TrimSpace(string(root))
 	path := strings.Replace(workingDir, rootPath, "", 1)
 	if len(path) > 0 && path[0] == '/' {
 		path = path[1:]
 	}
-	return path, url, nil
+	return path, gitURL, nil
 }
 
 func replaceLast(x, y, z string) string {
@@ -113,7 +114,7 @@ func (c *Client) ValidateRepoToken(ctx context.Context, repoURL, token string) e
 	}
 }
 
-// params: ctx, repoURL, token, path
+// ValidateRepoPath params: ctx, repoURL, token, path.
 func (c *Client) ValidateRepoPath(_ context.Context, _, _, path string) error {
 	if strings.Contains(path, " ") {
 		return eris.Errorf("invalid path: %s", path)
@@ -154,7 +155,11 @@ func validateGitHub(ctx context.Context, repoURL, token, apiBaseURL string) erro
 	if err != nil {
 		return err
 	}
-	defer resp.Body.Close()
+	defer func() {
+		if closeErr := resp.Body.Close(); closeErr != nil {
+			logger.Error("Failed to close response body", "error", closeErr)
+		}
+	}()
 
 	if resp.StatusCode == http.StatusOK {
 		return nil
@@ -190,7 +195,11 @@ func validateGitLab(ctx context.Context, repoURL, token, apiBaseURL string) erro
 	if err != nil {
 		return err
 	}
-	defer resp.Body.Close()
+	defer func() {
+		if closeErr := resp.Body.Close(); closeErr != nil {
+			logger.Error("Failed to close response body", "error", closeErr)
+		}
+	}()
 
 	if resp.StatusCode == http.StatusOK {
 		return nil
@@ -227,7 +236,11 @@ func validateBitbucket(ctx context.Context, repoURL, token, apiBaseURL string) e
 	if err != nil {
 		return err
 	}
-	defer resp.Body.Close()
+	defer func() {
+		if closeErr := resp.Body.Close(); closeErr != nil {
+			logger.Error("Failed to close response body", "error", closeErr)
+		}
+	}()
 
 	if resp.StatusCode == http.StatusOK {
 		return nil

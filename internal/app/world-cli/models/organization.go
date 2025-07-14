@@ -27,6 +27,8 @@ const (
 )
 
 // RolesMap is used for checking if a role is valid.
+//
+//nolint:gochecknoglobals // This is a validation constant map for checking valid roles
 var RolesMap = map[Role]struct{}{
 	RoleOwner:  {},
 	RoleAdmin:  {},

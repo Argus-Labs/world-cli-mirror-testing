@@ -3,7 +3,6 @@ package api
 import (
 	"bytes"
 	"context"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -13,7 +12,9 @@ import (
 	"strings"
 	"time"
 
+	"github.com/argus-labs/world-cli/v2/internal/pkg/logger"
 	"github.com/argus-labs/world-cli/v2/internal/pkg/printer"
+	"github.com/goccy/go-json"
 	"github.com/rotisserie/eris"
 	"github.com/tidwall/gjson"
 )
@@ -41,7 +42,7 @@ func (c *Client) SetAuthToken(token string) {
 	c.Token = token
 }
 
-// TODO: Remove this once we have a proper RPC client
+// GetRPCBaseURL TODO: Remove this once we have a proper RPC client
 func (c *Client) GetRPCBaseURL() string {
 	return c.RPCURL
 }
@@ -167,7 +168,11 @@ func (c *Client) doRequest(req *http.Request) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
+	defer func() {
+		if err := resp.Body.Close(); err != nil {
+			logger.Error("Failed to close response body", "error", err)
+		}
+	}()
 
 	if resp.StatusCode != http.StatusOK {
 		if resp.StatusCode == http.StatusUnauthorized {

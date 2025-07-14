@@ -6,9 +6,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/common/editor"
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/common/teacmd"
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/common/tomlutil"
+	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/shared/editor"
+	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/shared/teacmd"
+	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/shared/tomlutil"
 	"github.com/argus-labs/world-cli/v2/internal/pkg/tea/component/program"
 	"github.com/argus-labs/world-cli/v2/internal/pkg/tea/component/steps"
 	"github.com/argus-labs/world-cli/v2/internal/pkg/tea/style"

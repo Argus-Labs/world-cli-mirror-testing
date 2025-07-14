@@ -4,8 +4,8 @@ import (
 	"context"
 	"strings"
 
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/common/utils/validate"
 	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/models"
+	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/shared/utils/validate"
 	"github.com/argus-labs/world-cli/v2/internal/pkg/printer"
 	"github.com/rotisserie/eris"
 )

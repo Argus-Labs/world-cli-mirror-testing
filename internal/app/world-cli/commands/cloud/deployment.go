@@ -2,7 +2,6 @@ package cloud
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"regexp"
 	"strings"
@@ -15,6 +14,7 @@ import (
 	teaspinner "github.com/argus-labs/world-cli/v2/internal/pkg/tea/component/spinner"
 	"github.com/charmbracelet/bubbles/spinner"
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/goccy/go-json"
 	"github.com/rotisserie/eris"
 	"github.com/rs/zerolog/log"
 )
@@ -175,8 +175,6 @@ func (h *Handler) waitUntilDeploymentIsComplete(
 		}
 	}
 
-	// Status Loop
-	deployComplete := false
 	for {
 		select {
 		case <-ctx.Done():
@@ -184,10 +182,8 @@ func (h *Handler) waitUntilDeploymentIsComplete(
 			return ctx.Err()
 		case <-time.After(3 * time.Second):
 			if !spinnerExited.Load() {
-				switch {
-				case !deployComplete:
-					p.Send(teaspinner.LogMsg(fmt.Sprintf("Waiting for %s to complete...", deployType)))
-				case deployType == "destroy":
+				switch deployType {
+				case "destroy":
 					p.Send(teaspinner.LogMsg("Waiting for servers to be destroyed..."))
 				default:
 					p.Send(teaspinner.LogMsg("Waiting for servers to be healthy..."))
@@ -317,7 +313,7 @@ func (h *Handler) getAndPrintHealth(
 	}
 
 	healthComplete := true
-	statusFailRegEx := regexp.MustCompile(`[^a-zA-Z0-9\. ]+`)
+	statusFailRegEx := regexp.MustCompile(`[^a-zA-Z0-9. ]+`)
 	for env, val := range envMap {
 		if !shouldShowHealth(deployInfo[env]) {
 			// only show health for environments that have been deployed

@@ -11,7 +11,7 @@ type DeploymentPreview struct {
 	Regions        []string `json:"regions"`
 }
 
-// Parse the response into a map of environment names to their status.
+// DeploymentHealthCheckResult Parse the response into a map of environment names to their status.
 type DeploymentHealthCheckResult struct {
 	OK      bool `json:"ok"`
 	Offline bool `json:"offline"`

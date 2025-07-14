@@ -5,9 +5,10 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/common/config"
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/common/docker"
 	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/models"
+	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/shared/config"
+	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/shared/docker"
+	"github.com/argus-labs/world-cli/v2/internal/pkg/logger"
 	"github.com/argus-labs/world-cli/v2/internal/pkg/printer"
 	"github.com/argus-labs/world-cli/v2/internal/pkg/tea/style"
 	"github.com/docker/docker/api/types/registry"
@@ -16,6 +17,7 @@ import (
 	"golang.org/x/sync/errgroup"
 )
 
+//nolint:gocognit // one function, one job. also depreciated soon
 func (h *Handler) Build(ctx context.Context, f models.BuildCardinalFlags) error {
 	cfg, err := config.GetConfig(&f.Config)
 	if err != nil {
@@ -64,7 +66,7 @@ func (h *Handler) Build(ctx context.Context, f models.BuildCardinalFlags) error 
 	// Print out service addresses
 	printServiceAddress("Redis", cfg.DockerEnv["REDIS_ADDRESS"])
 	// this can be changed in code by calling WithPort() on world options, but we have no way to detect that
-	printServiceAddress("Cardinal", fmt.Sprintf("localhost:%s", CardinalPort))
+	printServiceAddress("Cardinal", fmt.Sprintf("localhost:%s", CardPort))
 	printer.NewLine(2)
 	printer.Infoln("Building Cardinal game shard image...")
 	printer.Infoln("This may take a few minutes.")
@@ -82,7 +84,11 @@ func (h *Handler) Build(ctx context.Context, f models.BuildCardinalFlags) error 
 	if err != nil {
 		return err
 	}
-	defer dockerClient.Close()
+	defer func() {
+		if err := dockerClient.Close(); err != nil {
+			logger.Error("Failed to close docker client", "error", err)
+		}
+	}()
 
 	services := getCardinalServices(cfg)
 

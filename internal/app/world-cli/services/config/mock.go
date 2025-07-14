@@ -10,7 +10,14 @@ type MockService struct {
 
 func (m *MockService) GetConfig() *Config {
 	args := m.Called()
-	return args.Get(0).(*Config)
+	if args.Get(0) == nil {
+		return nil
+	}
+
+	if config, ok := args.Get(0).(*Config); ok {
+		return config
+	}
+	return nil
 }
 
 func (m *MockService) Save() error {

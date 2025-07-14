@@ -3,7 +3,6 @@ package root
 import (
 	"context"
 	"encoding/base64"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"strings"
@@ -18,14 +17,17 @@ import (
 	teaspinner "github.com/argus-labs/world-cli/v2/internal/pkg/tea/component/spinner"
 	"github.com/charmbracelet/bubbles/spinner"
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/goccy/go-json"
 	"github.com/rotisserie/eris"
 	"github.com/rs/zerolog/log"
 )
 
-var (
+const (
 	maxLoginAttempts = 220              // 11 min x 60 sec ÷ 3 sec per attempt = 220 attempts
 	tokenLeeway      = 60 * time.Second // expire early to account for clock skew and command execution time
+)
 
+var (
 	errPending = eris.New("token status pending")
 )
 
@@ -50,8 +52,8 @@ func (h *Handler) Login(ctx context.Context) error {
 		return eris.Wrap(err, "forge command setup failed")
 	}
 
-	config := h.configService.GetConfig()
-	if config.CurrRepoKnown {
+	forgeConfig := h.configService.GetConfig()
+	if forgeConfig.CurrRepoKnown {
 		printer.NewLine(1)
 		printer.Headerln("   Known Project Details   ")
 		printer.Infof("Organization: %s\n", state.Organization.Name)
@@ -62,7 +64,7 @@ func (h *Handler) Login(ctx context.Context) error {
 		printer.NewLine(1)
 	}
 	// Display login success message
-	displayLoginSuccess(*config)
+	displayLoginSuccess(*forgeConfig)
 
 	return nil
 }

@@ -1,19 +1,12 @@
 package root
 
 import (
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/common/dependency"
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/common/teacmd"
+	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/shared/dependency"
+	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/shared/teacmd"
 	"github.com/argus-labs/world-cli/v2/internal/pkg/tea/component/program"
 	"github.com/argus-labs/world-cli/v2/internal/pkg/tea/style"
 	tea "github.com/charmbracelet/bubbletea"
 )
-
-var DoctorDeps = []dependency.Dependency{
-	dependency.Git,
-	dependency.Go,
-	dependency.Docker,
-	dependency.DockerDaemon,
-}
 
 func (h *Handler) Doctor() error {
 	p := program.NewTeaProgram(NewWorldDoctorModel())
@@ -22,6 +15,15 @@ func (h *Handler) Doctor() error {
 		return err
 	}
 	return nil
+}
+
+func doctorDeps() []dependency.Dependency {
+	return []dependency.Dependency{
+		dependency.Git,
+		dependency.Go,
+		dependency.Docker,
+		dependency.DockerDaemon,
+	}
 }
 
 //////////////////////
@@ -43,7 +45,7 @@ func NewWorldDoctorModel() WorldDoctorModel {
 
 // Init returns an initial command for the application to run.
 func (m WorldDoctorModel) Init() tea.Cmd {
-	return teacmd.CheckDependenciesCmd(DoctorDeps)
+	return teacmd.CheckDependenciesCmd(doctorDeps())
 }
 
 // Update handles incoming events and updates the model accordingly.

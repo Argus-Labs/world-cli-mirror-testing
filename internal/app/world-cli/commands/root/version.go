@@ -51,7 +51,11 @@ func (h *Handler) checkLatestVersion() error {
 		logger.Debug(eris.Wrap(err, "error fetching the latest release"))
 		return nil
 	}
-	defer resp.Body.Close()
+	defer func() {
+		if err := resp.Body.Close(); err != nil {
+			logger.Error("Failed to close response body", "error", err)
+		}
+	}()
 
 	// Check if the status code is 302
 	// GitHub responds with a 302 redirect to the actual latest release URL, which contains the version number

@@ -263,6 +263,7 @@ func (c *Controller) handleStateSetup(
 			ID: cfg.OrganizationID,
 		}
 	} else {
+		// noinspection GoSwitchMissingCasesForIotaConsts
 		switch req.OrganizationRequired { //nolint:exhaustive // don't need to handle all cases
 		case models.NeedData, models.NeedIDOnly:
 			if err := c.handleNeedOrgData(ctx, result, cfg); err != nil {
@@ -282,6 +283,7 @@ func (c *Controller) handleStateSetup(
 			Name: cfg.CurrProjectName,
 		}
 	} else {
+		// noinspection GoSwitchMissingCasesForIotaConsts
 		switch req.ProjectRequired { //nolint:exhaustive // don't need to handle all cases
 		case models.NeedData, models.NeedIDOnly:
 			if err := c.handleNeedProjectData(ctx, result, cfg); err != nil {

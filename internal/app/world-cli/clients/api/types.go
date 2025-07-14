@@ -140,7 +140,7 @@ type RequestConfig struct {
 	CustomHeaders map[string]string
 }
 
-// Login link response structure.
+// LoginLinkResponse Login link response structure.
 type LoginLinkResponse struct {
 	CallBackURL string `json:"callbackUrl"`
 	ClientURL   string `json:"clientUrl"`

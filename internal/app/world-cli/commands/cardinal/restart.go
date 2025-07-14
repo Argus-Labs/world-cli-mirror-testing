@@ -3,9 +3,10 @@ package cardinal
 import (
 	"context"
 
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/common/config"
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/common/docker"
 	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/models"
+	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/shared/config"
+	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/shared/docker"
+	"github.com/argus-labs/world-cli/v2/internal/pkg/logger"
 )
 
 func (h *Handler) Restart(ctx context.Context, f models.RestartCardinalFlags) error {
@@ -22,7 +23,11 @@ func (h *Handler) Restart(ctx context.Context, f models.RestartCardinalFlags) er
 	if err != nil {
 		return err
 	}
-	defer dockerClient.Close()
+	defer func() {
+		if err := dockerClient.Close(); err != nil {
+			logger.Error("Failed to close docker client", "error", err)
+		}
+	}()
 
 	err = dockerClient.Restart(ctx, getServices(cfg)...)
 	if err != nil {

@@ -127,7 +127,7 @@ func (s *ProjectTestSuite) TestHandler_Create_Success() {
 	originalDir, err := os.Getwd()
 	s.Require().NoError(err)
 	s.T().Cleanup(func() {
-		os.Chdir(originalDir)
+		s.Require().NoError(os.Chdir(originalDir))
 	})
 	err = os.Chdir(tmpDir)
 	s.Require().NoError(err)
@@ -268,7 +268,7 @@ func (s *ProjectTestSuite) TestHandler_Create_GetRegionsError() {
 	originalDir, err := os.Getwd()
 	s.Require().NoError(err)
 	s.T().Cleanup(func() {
-		os.Chdir(originalDir)
+		s.Require().NoError(os.Chdir(originalDir))
 	})
 	err = os.Chdir(tmpDir)
 	s.Require().NoError(err)
@@ -618,7 +618,7 @@ func (s *ProjectTestSuite) TestHandler_HandleSwitch_NoProjects() {
 	originalDir, err := os.Getwd()
 	s.Require().NoError(err)
 	s.T().Cleanup(func() {
-		os.Chdir(originalDir)
+		s.Require().NoError(os.Chdir(originalDir))
 	})
 	err = os.Chdir(tmpDir)
 	s.Require().NoError(err)
@@ -654,7 +654,7 @@ func (s *ProjectTestSuite) TestHandler_PreCreateUpdateValidation_Success() {
 	originalDir, err := os.Getwd()
 	s.Require().NoError(err)
 	s.T().Cleanup(func() {
-		os.Chdir(originalDir)
+		s.Require().NoError(os.Chdir(originalDir))
 	})
 	err = os.Chdir(tmpDir)
 	s.Require().NoError(err)
@@ -698,7 +698,7 @@ func (s *ProjectTestSuite) TestHandler_Create_SlugAlreadyExists() {
 	originalDir, err := os.Getwd()
 	s.Require().NoError(err)
 	s.T().Cleanup(func() {
-		os.Chdir(originalDir)
+		s.Require().NoError(os.Chdir(originalDir))
 	})
 	err = os.Chdir(tmpDir)
 	s.Require().NoError(err)
@@ -788,7 +788,7 @@ func (s *ProjectTestSuite) TestHandler_Update_Success() {
 	originalDir, err := os.Getwd()
 	s.Require().NoError(err)
 	s.T().Cleanup(func() {
-		os.Chdir(originalDir)
+		s.Require().NoError(os.Chdir(originalDir))
 	})
 	err = os.Chdir(tmpDir)
 	s.Require().NoError(err)
@@ -863,7 +863,7 @@ func (s *ProjectTestSuite) TestHandler_Update_SlugAlreadyExists() {
 	originalDir, err := os.Getwd()
 	s.Require().NoError(err)
 	s.T().Cleanup(func() {
-		os.Chdir(originalDir)
+		s.Require().NoError(os.Chdir(originalDir))
 	})
 	err = os.Chdir(tmpDir)
 	s.Require().NoError(err)
@@ -938,7 +938,7 @@ func (s *ProjectTestSuite) TestHandler_Switch_EnableCreation_NoProjects() {
 	originalDir, err := os.Getwd()
 	s.Require().NoError(err)
 	s.T().Cleanup(func() {
-		os.Chdir(originalDir)
+		s.Require().NoError(os.Chdir(originalDir))
 	})
 	err = os.Chdir(tmpDir)
 	s.Require().NoError(err)
@@ -1235,7 +1235,7 @@ func (s *ProjectTestSuite) TestHandler_Switch_CreateOption_InRepoRoot() {
 	originalDir, err := os.Getwd()
 	s.Require().NoError(err)
 	s.T().Cleanup(func() {
-		os.Chdir(originalDir)
+		s.Require().NoError(os.Chdir(originalDir))
 	})
 	err = os.Chdir(tmpDir)
 	s.Require().NoError(err)
@@ -1336,7 +1336,7 @@ func (s *ProjectTestSuite) TestHandler_HandleSwitch_NoProjects_CreateConfirmed()
 	originalDir, err := os.Getwd()
 	s.Require().NoError(err)
 	s.T().Cleanup(func() {
-		os.Chdir(originalDir)
+		s.Require().NoError(os.Chdir(originalDir))
 	})
 	err = os.Chdir(tmpDir)
 	s.Require().NoError(err)
@@ -1433,7 +1433,7 @@ func (s *ProjectTestSuite) TestHandler_Create_InvalidURL() {
 	originalDir, err := os.Getwd()
 	s.Require().NoError(err)
 	s.T().Cleanup(func() {
-		os.Chdir(originalDir)
+		s.Require().NoError(os.Chdir(originalDir))
 	})
 	err = os.Chdir(tmpDir)
 	s.Require().NoError(err)
@@ -1535,7 +1535,7 @@ func (s *ProjectTestSuite) TestHandler_Create_WithNotifications() {
 	originalDir, err := os.Getwd()
 	s.Require().NoError(err)
 	s.T().Cleanup(func() {
-		os.Chdir(originalDir)
+		s.Require().NoError(os.Chdir(originalDir))
 	})
 	err = os.Chdir(tmpDir)
 	s.Require().NoError(err)
@@ -1646,7 +1646,7 @@ func (s *ProjectTestSuite) TestHandler_Create_PublicTokenSelection() {
 	originalDir, err := os.Getwd()
 	s.Require().NoError(err)
 	s.T().Cleanup(func() {
-		os.Chdir(originalDir)
+		s.Require().NoError(os.Chdir(originalDir))
 	})
 	err = os.Chdir(tmpDir)
 	s.Require().NoError(err)

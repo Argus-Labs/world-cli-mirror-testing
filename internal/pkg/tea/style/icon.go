@@ -2,6 +2,7 @@ package style
 
 import "github.com/charmbracelet/lipgloss"
 
+//nolint:gochecknoglobals // This is a normal pattern for style constants in UI libraries
 var (
 	QuestionIcon    = lipgloss.NewStyle().Foreground(lipgloss.Color("251")).SetString("? ").Bold(true)
 	CrossIcon       = lipgloss.NewStyle().Foreground(lipgloss.Color("9")).SetString("✗ ").Bold(true)

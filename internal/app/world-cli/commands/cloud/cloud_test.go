@@ -62,7 +62,7 @@ func (s *CloudTestSuite) createTestOrganization() models.Organization {
 func (s *CloudTestSuite) TestHandler_DeploymentDeploy_Success() {
 	handler, mockAPI, mockConfig, mockInput, _ := s.createTestHandler()
 	ctx := context.Background()
-	project := s.createTestProject()
+	testProject := s.createTestProject()
 
 	// Mock config for project deployment
 	testConfig := config.Config{
@@ -106,7 +106,7 @@ func (s *CloudTestSuite) TestHandler_DeploymentDeploy_Success() {
 	}`)
 	mockAPI.On("GetDeploymentStatus", mock.Anything, "test-project-id").Return(statusResponse, nil)
 
-	err := handler.Deployment(ctx, "test-org-id", project, models.DeploymentTypeDeploy)
+	err := handler.Deployment(ctx, "test-org-id", testProject, models.DeploymentTypeDeploy)
 
 	s.Require().NoError(err)
 	mockAPI.AssertExpectations(s.T())
@@ -117,7 +117,7 @@ func (s *CloudTestSuite) TestHandler_DeploymentDeploy_Success() {
 func (s *CloudTestSuite) TestHandler_DeploymentDeploy_UserCancels() {
 	handler, mockAPI, _, mockInput, _ := s.createTestHandler()
 	ctx := context.Background()
-	project := s.createTestProject()
+	testProject := s.createTestProject()
 
 	// Mock preview deployment
 	previewResponse := models.DeploymentPreview{
@@ -137,7 +137,7 @@ func (s *CloudTestSuite) TestHandler_DeploymentDeploy_UserCancels() {
 	mockInput.On("Confirm", ctx, "Do you want to proceed with the Deploying? (Y/n)", "n").
 		Return(false, nil)
 
-	err := handler.Deployment(ctx, "test-org-id", project, models.DeploymentTypeDeploy)
+	err := handler.Deployment(ctx, "test-org-id", testProject, models.DeploymentTypeDeploy)
 
 	s.Require().NoError(err) // Should not error when user cancels
 	mockAPI.AssertExpectations(s.T())
@@ -147,7 +147,7 @@ func (s *CloudTestSuite) TestHandler_DeploymentDeploy_UserCancels() {
 func (s *CloudTestSuite) TestHandler_DeploymentDestroy_Success() {
 	handler, mockAPI, mockConfig, mockInput, _ := s.createTestHandler()
 	ctx := context.Background()
-	project := s.createTestProject()
+	testProject := s.createTestProject()
 
 	// Mock config for project deployment
 	testConfig := config.Config{
@@ -191,7 +191,7 @@ func (s *CloudTestSuite) TestHandler_DeploymentDestroy_Success() {
 	}`)
 	mockAPI.On("GetDeploymentStatus", mock.Anything, "test-project-id").Return(statusResponse, nil)
 
-	err := handler.Deployment(ctx, "test-org-id", project, models.DeploymentTypeDestroy)
+	err := handler.Deployment(ctx, "test-org-id", testProject, models.DeploymentTypeDestroy)
 
 	s.Require().NoError(err)
 	mockAPI.AssertExpectations(s.T())
@@ -202,7 +202,7 @@ func (s *CloudTestSuite) TestHandler_DeploymentDestroy_Success() {
 func (s *CloudTestSuite) TestHandler_DeploymentReset_Success() {
 	handler, mockAPI, mockConfig, mockInput, _ := s.createTestHandler()
 	ctx := context.Background()
-	project := s.createTestProject()
+	testProject := s.createTestProject()
 
 	// Mock config for project deployment
 	testConfig := config.Config{
@@ -246,7 +246,7 @@ func (s *CloudTestSuite) TestHandler_DeploymentReset_Success() {
 	}`)
 	mockAPI.On("GetDeploymentStatus", mock.Anything, "test-project-id").Return(statusResponse, nil)
 
-	err := handler.Deployment(ctx, "test-org-id", project, models.DeploymentTypeReset)
+	err := handler.Deployment(ctx, "test-org-id", testProject, models.DeploymentTypeReset)
 
 	s.Require().NoError(err)
 	mockAPI.AssertExpectations(s.T())
@@ -257,7 +257,7 @@ func (s *CloudTestSuite) TestHandler_DeploymentReset_Success() {
 func (s *CloudTestSuite) TestHandler_DeploymentPromote_Success() {
 	handler, mockAPI, mockConfig, mockInput, _ := s.createTestHandler()
 	ctx := context.Background()
-	project := s.createTestProject()
+	testProject := s.createTestProject()
 
 	// Mock config for project deployment
 	testConfig := config.Config{
@@ -301,7 +301,7 @@ func (s *CloudTestSuite) TestHandler_DeploymentPromote_Success() {
 	}`)
 	mockAPI.On("GetDeploymentStatus", mock.Anything, "test-project-id").Return(statusResponse, nil)
 
-	err := handler.Deployment(ctx, "test-org-id", project, models.DeploymentTypePromote)
+	err := handler.Deployment(ctx, "test-org-id", testProject, models.DeploymentTypePromote)
 
 	s.Require().NoError(err)
 	mockAPI.AssertExpectations(s.T())
@@ -312,7 +312,7 @@ func (s *CloudTestSuite) TestHandler_DeploymentPromote_Success() {
 func (s *CloudTestSuite) TestHandler_DeploymentForceDeploy_Success() {
 	handler, mockAPI, mockConfig, mockInput, _ := s.createTestHandler()
 	ctx := context.Background()
-	project := s.createTestProject()
+	testProject := s.createTestProject()
 
 	// Mock config for project deployment
 	testConfig := config.Config{
@@ -369,7 +369,7 @@ func (s *CloudTestSuite) TestHandler_DeploymentForceDeploy_Success() {
 	}`)
 	mockAPI.On("GetDeploymentStatus", mock.Anything, "test-project-id").Return(statusResponse2, nil)
 
-	err := handler.Deployment(ctx, "test-org-id", project, models.DeploymentTypeForceDeploy)
+	err := handler.Deployment(ctx, "test-org-id", testProject, models.DeploymentTypeForceDeploy)
 
 	s.Require().NoError(err)
 	mockAPI.AssertExpectations(s.T())
@@ -380,10 +380,10 @@ func (s *CloudTestSuite) TestHandler_DeploymentForceDeploy_Success() {
 func (s *CloudTestSuite) TestHandler_DeploymentNoOrganization() {
 	handler, _, _, _, _ := s.createTestHandler()
 	ctx := context.Background()
-	project := s.createTestProject()
+	testProject := s.createTestProject()
 
 	// Test with empty organization ID
-	err := handler.Deployment(ctx, "", project, models.DeploymentTypeDeploy)
+	err := handler.Deployment(ctx, "", testProject, models.DeploymentTypeDeploy)
 
 	s.Require().NoError(err) // Should not error, just return early
 }
@@ -391,7 +391,7 @@ func (s *CloudTestSuite) TestHandler_DeploymentNoOrganization() {
 func (s *CloudTestSuite) TestHandler_DeploymentCreateProject() {
 	handler, mockAPI, mockConfig, mockInput, mockProject := s.createTestHandler()
 	ctx := context.Background()
-	project := models.Project{
+	testProject := models.Project{
 		ID:      "", // Empty project ID to trigger creation
 		RepoURL: "https://github.com/argus-labs/starter-game-template",
 	}
@@ -452,7 +452,7 @@ func (s *CloudTestSuite) TestHandler_DeploymentCreateProject() {
 	}`)
 	mockAPI.On("GetDeploymentStatus", mock.Anything, "new-project-id").Return(statusResponse, nil)
 
-	err := handler.Deployment(ctx, "test-org-id", project, models.DeploymentTypeDeploy)
+	err := handler.Deployment(ctx, "test-org-id", testProject, models.DeploymentTypeDeploy)
 
 	s.Require().NoError(err)
 	mockAPI.AssertExpectations(s.T())
@@ -464,13 +464,13 @@ func (s *CloudTestSuite) TestHandler_DeploymentCreateProject() {
 func (s *CloudTestSuite) TestHandler_DeploymentPreviewError() {
 	handler, mockAPI, _, _, _ := s.createTestHandler()
 	ctx := context.Background()
-	project := s.createTestProject()
+	testProject := s.createTestProject()
 
 	// Mock preview deployment error
 	mockAPI.On("PreviewDeployment", ctx, "test-org-id", "test-project-id", models.DeploymentTypeDeploy).
 		Return(models.DeploymentPreview{}, errors.New("preview failed"))
 
-	err := handler.Deployment(ctx, "test-org-id", project, models.DeploymentTypeDeploy)
+	err := handler.Deployment(ctx, "test-org-id", testProject, models.DeploymentTypeDeploy)
 
 	s.Require().Error(err)
 	s.Contains(err.Error(), "Failed to preview deployment")
@@ -480,7 +480,7 @@ func (s *CloudTestSuite) TestHandler_DeploymentPreviewError() {
 func (s *CloudTestSuite) TestHandler_DeploymentInputError() {
 	handler, mockAPI, _, mockInput, _ := s.createTestHandler()
 	ctx := context.Background()
-	project := s.createTestProject()
+	testProject := s.createTestProject()
 
 	// Mock preview deployment
 	previewResponse := models.DeploymentPreview{
@@ -500,7 +500,7 @@ func (s *CloudTestSuite) TestHandler_DeploymentInputError() {
 	mockInput.On("Confirm", ctx, "Do you want to proceed with the Deploying? (Y/n)", "n").
 		Return(false, errors.New("input failed"))
 
-	err := handler.Deployment(ctx, "test-org-id", project, models.DeploymentTypeDeploy)
+	err := handler.Deployment(ctx, "test-org-id", testProject, models.DeploymentTypeDeploy)
 
 	s.Require().Error(err)
 	s.Contains(err.Error(), "Failed to prompt user")
@@ -511,7 +511,7 @@ func (s *CloudTestSuite) TestHandler_DeploymentInputError() {
 func (s *CloudTestSuite) TestHandler_DeploymentAPIError() {
 	handler, mockAPI, _, mockInput, _ := s.createTestHandler()
 	ctx := context.Background()
-	project := s.createTestProject()
+	testProject := s.createTestProject()
 
 	// Mock preview deployment
 	previewResponse := models.DeploymentPreview{
@@ -535,7 +535,7 @@ func (s *CloudTestSuite) TestHandler_DeploymentAPIError() {
 	mockAPI.On("DeployProject", ctx, "test-org-id", "test-project-id", models.DeploymentTypeDestroy).
 		Return(errors.New("API error"))
 
-	err := handler.Deployment(ctx, "test-org-id", project, models.DeploymentTypeDestroy)
+	err := handler.Deployment(ctx, "test-org-id", testProject, models.DeploymentTypeDestroy)
 
 	s.Require().Error(err)
 	s.Contains(err.Error(), "Failed to deploy project")
@@ -547,7 +547,7 @@ func (s *CloudTestSuite) TestHandler_Status_Success() {
 	handler, mockAPI, _, _, _ := s.createTestHandler()
 	ctx := context.Background()
 	org := s.createTestOrganization()
-	project := s.createTestProject()
+	testProject := s.createTestProject()
 
 	// Mock deployment status
 	statusResponse := []byte(`{
@@ -571,7 +571,7 @@ func (s *CloudTestSuite) TestHandler_Status_Success() {
 	// Note: No health status call expected since none of the deployments should trigger health checks
 	// dev is "created" with type "deploy" but we don't have the DeployType field in the response
 
-	err := handler.Status(ctx, org, project)
+	err := handler.Status(ctx, org, testProject)
 
 	s.Require().NoError(err)
 	mockAPI.AssertExpectations(s.T())
@@ -581,13 +581,13 @@ func (s *CloudTestSuite) TestHandler_Status_DeploymentStatusError() {
 	handler, mockAPI, _, _, _ := s.createTestHandler()
 	ctx := context.Background()
 	org := s.createTestOrganization()
-	project := s.createTestProject()
+	testProject := s.createTestProject()
 
 	// Mock deployment status error
 	mockAPI.On("GetDeploymentStatus", ctx, "test-project-id").
 		Return([]byte{}, errors.New("status error"))
 
-	err := handler.Status(ctx, org, project)
+	err := handler.Status(ctx, org, testProject)
 
 	s.Require().Error(err)
 	s.Contains(err.Error(), "Failed to get deployment status")
@@ -598,13 +598,13 @@ func (s *CloudTestSuite) TestHandler_Status_InvalidJSON() {
 	handler, mockAPI, _, _, _ := s.createTestHandler()
 	ctx := context.Background()
 	org := s.createTestOrganization()
-	project := s.createTestProject()
+	testProject := s.createTestProject()
 
 	// Mock invalid JSON response
 	statusResponse := []byte(`invalid json`)
 	mockAPI.On("GetDeploymentStatus", mock.Anything, "test-project-id").Return(statusResponse, nil)
 
-	err := handler.Status(ctx, org, project)
+	err := handler.Status(ctx, org, testProject)
 
 	s.Require().Error(err)
 	s.Contains(err.Error(), "Failed to unmarshal deployment response")
@@ -662,7 +662,7 @@ func (s *CloudTestSuite) TestHandler_TailLogs_Success() {
 func (s *CloudTestSuite) TestHandler_Deploy() {
 	handler, mockAPI, mockConfig, mockInput, _ := s.createTestHandler()
 	ctx := context.Background()
-	project := s.createTestProject()
+	testProject := s.createTestProject()
 
 	// Mock config
 	testConfig := config.Config{
@@ -706,7 +706,7 @@ func (s *CloudTestSuite) TestHandler_Deploy() {
 	}`)
 	mockAPI.On("GetDeploymentStatus", mock.Anything, "test-project-id").Return(statusResponse, nil)
 
-	err := handler.Deployment(ctx, "test-org-id", project, models.DeploymentTypeDeploy)
+	err := handler.Deployment(ctx, "test-org-id", testProject, models.DeploymentTypeDeploy)
 
 	s.Require().NoError(err)
 	mockAPI.AssertExpectations(s.T())
@@ -718,7 +718,7 @@ func (s *CloudTestSuite) TestHandler_Status() {
 	handler, mockAPI, _, _, _ := s.createTestHandler()
 	ctx := context.Background()
 	org := s.createTestOrganization()
-	project := s.createTestProject()
+	testProject := s.createTestProject()
 
 	// Mock deployment status
 	statusResponse := []byte(`{
@@ -733,7 +733,7 @@ func (s *CloudTestSuite) TestHandler_Status() {
 	}`)
 	mockAPI.On("GetDeploymentStatus", mock.Anything, "test-project-id").Return(statusResponse, nil)
 
-	err := handler.Status(ctx, org, project)
+	err := handler.Status(ctx, org, testProject)
 
 	s.Require().NoError(err)
 	mockAPI.AssertExpectations(s.T())

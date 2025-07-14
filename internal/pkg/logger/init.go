@@ -18,8 +18,10 @@ const (
 )
 
 var (
+	//nolint:gochecknoglobals // Global buffer for collecting logs in memory
 	logBuffer bytes.Buffer
 
+	//nolint:gochecknoglobals // Global flag for controlling verbose logging output
 	// VerboseMode flag for determining verbose logging.
 	VerboseMode = false
 )

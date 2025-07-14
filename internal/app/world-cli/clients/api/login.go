@@ -2,12 +2,13 @@ package api
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
 
 	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/models"
+	"github.com/argus-labs/world-cli/v2/internal/pkg/logger"
+	"github.com/goccy/go-json"
 	"github.com/rotisserie/eris"
 )
 
@@ -29,7 +30,11 @@ func (c *Client) GetLoginLink(ctx context.Context) (LoginLinkResponse, error) {
 	if err != nil {
 		return LoginLinkResponse{}, eris.Wrap(err, "Failed to get login link")
 	}
-	defer resp.Body.Close()
+	defer func() {
+		if err := resp.Body.Close(); err != nil {
+			logger.Error("Failed to close response body", "error", err)
+		}
+	}()
 
 	if resp.StatusCode != http.StatusOK {
 		return LoginLinkResponse{}, eris.Errorf("received non-200 status code: %d", resp.StatusCode)
@@ -61,7 +66,11 @@ func (c *Client) GetLoginToken(ctx context.Context, callbackURL string) (models.
 	if err != nil {
 		return models.LoginToken{}, eris.Wrap(err, "Failed to get login token")
 	}
-	defer resp.Body.Close()
+	defer func() {
+		if err := resp.Body.Close(); err != nil {
+			logger.Error("Failed to close response body", "error", err)
+		}
+	}()
 
 	if resp.StatusCode != http.StatusOK {
 		return models.LoginToken{}, eris.Errorf("received non-200 status code: %d", resp.StatusCode)

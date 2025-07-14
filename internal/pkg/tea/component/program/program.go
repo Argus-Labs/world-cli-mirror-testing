@@ -15,7 +15,7 @@ import (
 	"golang.org/x/term"
 )
 
-// An interface describing the parts of BubbleTea's Program that we actually use.
+// Program An interface describing the parts of BubbleTea's Program that we actually use.
 type Program interface {
 	Start() error
 	Send(msg tea.Msg)
@@ -192,9 +192,9 @@ func (m logModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func (m logModel) View() string {
-	var progress string
+	var viewProgress string
 	if m.progress != nil {
-		progress = "\n\n" + m.progress.View()
+		viewProgress = "\n\n" + m.progress.View()
 	}
 
 	var psqlOutputs string
@@ -202,7 +202,7 @@ func (m logModel) View() string {
 		psqlOutputs = "\n\n" + strings.Join(m.psqlOutputs, "\n")
 	}
 
-	return wrap.String(m.spinner.View()+m.status+progress+psqlOutputs, m.width)
+	return wrap.String(m.spinner.View()+m.status+viewProgress+psqlOutputs, m.width)
 }
 
 func newProgram(model tea.Model, opts ...tea.ProgramOption) Program {

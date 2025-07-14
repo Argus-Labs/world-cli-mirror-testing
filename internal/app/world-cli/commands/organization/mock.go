@@ -17,12 +17,22 @@ type MockHandler struct {
 
 func (m *MockHandler) Create(ctx context.Context, flags models.CreateOrganizationFlags) (models.Organization, error) {
 	args := m.Called(ctx, flags)
-	return args.Get(0).(models.Organization), args.Error(1)
+	org, ok := args.Get(0).(models.Organization)
+	if !ok {
+		return models.Organization{}, args.Error(1)
+	}
+
+	return org, args.Error(1)
 }
 
 func (m *MockHandler) Switch(ctx context.Context, flags models.SwitchOrganizationFlags) (models.Organization, error) {
 	args := m.Called(ctx, flags)
-	return args.Get(0).(models.Organization), args.Error(1)
+	org, ok := args.Get(0).(models.Organization)
+	if !ok {
+		return models.Organization{}, args.Error(1)
+	}
+
+	return org, args.Error(1)
 }
 
 func (m *MockHandler) MembersList(ctx context.Context, org models.Organization, flags models.MembersListFlags) error {
@@ -33,7 +43,12 @@ func (m *MockHandler) MembersList(ctx context.Context, org models.Organization, 
 func (m *MockHandler) PromptForSwitch(ctx context.Context, orgs []models.Organization, enableCreation bool,
 ) (models.Organization, error) {
 	args := m.Called(ctx, orgs, enableCreation)
-	return args.Get(0).(models.Organization), args.Error(1)
+	org, ok := args.Get(0).(models.Organization)
+	if !ok {
+		return models.Organization{}, args.Error(1)
+	}
+
+	return org, args.Error(1)
 }
 
 func (m *MockHandler) PrintNoOrganizations() {

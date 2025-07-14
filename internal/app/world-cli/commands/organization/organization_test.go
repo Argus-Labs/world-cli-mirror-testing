@@ -690,7 +690,7 @@ func (s *OrganizationTestSuite) TestHandler_MembersList_EmptyMembers() {
 	}
 
 	// Empty members list
-	testMembers := []models.OrganizationMember{}
+	var testMembers []models.OrganizationMember
 
 	mockAPIClient.On("GetOrganizationMembers", ctx, org.ID).Return(testMembers, nil)
 

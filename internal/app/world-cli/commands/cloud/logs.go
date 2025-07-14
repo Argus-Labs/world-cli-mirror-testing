@@ -134,7 +134,7 @@ func (h *Handler) getListOfEnvironments(ctx context.Context, project models.Proj
 	}
 
 	// Create a list of environments that are online
-	envs := []string{}
+	var envs []string
 	for env, envStatus := range envMap {
 		if envStatus.OK {
 			envs = append(envs, env)

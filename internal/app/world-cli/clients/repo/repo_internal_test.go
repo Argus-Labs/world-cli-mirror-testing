@@ -274,7 +274,8 @@ func (s *RepoTestSuite) TestValidateRepoToken_WithMockServer() {
 				}
 
 				w.WriteHeader(tt.mockResponse)
-				w.Write([]byte(tt.mockBody))
+				_, err := w.Write([]byte(tt.mockBody))
+				s.NoError(err)
 			}))
 			defer server.Close()
 

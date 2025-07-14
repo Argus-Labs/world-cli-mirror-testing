@@ -21,7 +21,12 @@ func (m *MockHandler) Create(
 	flags models.CreateProjectFlags,
 ) (models.Project, error) {
 	args := m.Called(ctx, org, flags)
-	return args.Get(0).(models.Project), args.Error(1)
+	project, ok := args.Get(0).(models.Project)
+	if !ok {
+		return models.Project{}, args.Error(1)
+	}
+
+	return project, args.Error(1)
 }
 
 func (m *MockHandler) Switch(
@@ -31,7 +36,12 @@ func (m *MockHandler) Switch(
 	enableCreation bool,
 ) (models.Project, error) {
 	args := m.Called(ctx, flags, org, enableCreation)
-	return args.Get(0).(models.Project), args.Error(1)
+	project, ok := args.Get(0).(models.Project)
+	if !ok {
+		return models.Project{}, args.Error(1)
+	}
+
+	return project, args.Error(1)
 }
 
 func (m *MockHandler) HandleSwitch(ctx context.Context, org models.Organization) error {
@@ -59,7 +69,21 @@ func (m *MockHandler) Delete(
 
 func (m *MockHandler) PreCreateUpdateValidation(printError bool) (string, string, error) {
 	args := m.Called(printError)
-	return args.Get(0).(string), args.Get(1).(string), args.Error(2)
+	if args.Get(0) == nil {
+		return "", "", args.Error(2)
+	}
+
+	slug, ok := args.Get(0).(string)
+	if !ok {
+		return "", "", args.Error(2)
+	}
+
+	projectName, ok := args.Get(1).(string)
+	if !ok {
+		return "", "", args.Error(2)
+	}
+
+	return slug, projectName, args.Error(2)
 }
 
 func (m *MockHandler) PrintNoProjectsInOrganization() {

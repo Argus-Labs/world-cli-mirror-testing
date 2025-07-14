@@ -11,11 +11,11 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/common"
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/common/config"
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/common/docker"
-	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/common/docker/service"
 	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/models"
+	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/shared"
+	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/shared/config"
+	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/shared/docker"
+	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/shared/docker/service"
 	"github.com/argus-labs/world-cli/v2/internal/pkg/logger"
 	"github.com/argus-labs/world-cli/v2/internal/pkg/printer"
 	"github.com/argus-labs/world-cli/v2/internal/pkg/tea/style"
@@ -25,8 +25,8 @@ import (
 )
 
 const (
-	CardinalPort = "4040"
-	RedisPort    = "6379"
+	CardPort  = "4040"
+	RedisPort = "6379"
 
 	// Cardinal Editor Port Range.
 	cePortStart = 3000
@@ -44,10 +44,10 @@ func (h *Handler) Dev(ctx context.Context, f models.DevCardinalFlags) error {
 
 	// Print out service addresses
 	printServiceAddress("Redis", fmt.Sprintf("localhost:%s", RedisPort))
-	printServiceAddress("Cardinal", fmt.Sprintf("localhost:%s", CardinalPort))
+	printServiceAddress("Cardinal", fmt.Sprintf("localhost:%s", CardPort))
 	var port int
 	if f.Editor {
-		port, err = common.FindUnusedPort(cePortStart, cePortEnd)
+		port, err = shared.FindUnusedPort(cePortStart, cePortEnd)
 		if err != nil {
 			return eris.Wrap(err, "Failed to find an unused port for Cardinal Editor")
 		}
@@ -130,12 +130,12 @@ func startCardinalDevMode(ctx context.Context, cfg *config.Config, prettyLog boo
 	}
 
 	// Set world.toml environment variables
-	if err := common.WithEnv(cfg.DockerEnv); err != nil {
+	if err := shared.WithEnv(cfg.DockerEnv); err != nil {
 		return eris.Wrap(err, "Failed to set world.toml environment variables")
 	}
 
 	// Set dev mode environment variables
-	if err := common.WithEnv(
+	if err := shared.WithEnv(
 		map[string]string{
 			"RUNNER_IGNORED":      "assets, tmp, vendor",
 			"CARDINAL_PRETTY_LOG": strconv.FormatBool(prettyLog),
@@ -210,7 +210,11 @@ func startRedis(ctx context.Context, cfg *config.Config) error {
 	if err != nil {
 		return err
 	}
-	defer dockerClient.Close()
+	defer func() {
+		if err := dockerClient.Close(); err != nil {
+			logger.Error("Failed to close docker client", "error", err)
+		}
+	}()
 
 	// Create context with cancel
 	ctx, cancel := context.WithCancel(ctx)

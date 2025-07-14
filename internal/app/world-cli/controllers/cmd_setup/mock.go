@@ -25,5 +25,9 @@ func (m *MockController) SetupCommandState(
 	if args.Get(0) == nil {
 		return models.CommandState{}, args.Error(1)
 	}
-	return args.Get(0).(models.CommandState), args.Error(1)
+
+	if state, ok := args.Get(0).(models.CommandState); ok {
+		return state, args.Error(1)
+	}
+	return models.CommandState{}, args.Error(1)
 }

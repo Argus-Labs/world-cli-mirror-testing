@@ -175,7 +175,7 @@ func (s *UserTestSuite) TestHandler_InviteToOrganization_EmailFailed() {
 		Return(0, nil)
 
 	// Mock API error with email failed message
-	emailErr := errors.New("Organization email invite failed, but invite is still created in CLI.")
+	emailErr := errors.New("organization email invite failed, but invite is still created in CLI")
 	mockAPIClient.On("InviteUserToOrganization", ctx, "org-123", "invite@example.com", "member").
 		Return(emailErr)
 
