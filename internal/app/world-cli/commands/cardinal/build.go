@@ -17,7 +17,7 @@ import (
 	"golang.org/x/sync/errgroup"
 )
 
-//nolint:gocognit // one function, one job. also depreciated soon
+//nolint:gocognit // one function, one job. also depreciated soon!
 func (h *Handler) Build(ctx context.Context, f models.BuildCardinalFlags) error {
 	cfg, err := config.GetConfig(&f.Config)
 	if err != nil {
