@@ -11,10 +11,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/argus-labs/go-ecs/internal/app/world-cli/common/config"
-	"github.com/argus-labs/go-ecs/internal/app/world-cli/common/docker/service"
-	"github.com/argus-labs/go-ecs/internal/app/world-cli/common/teacmd"
-	"github.com/argus-labs/go-ecs/internal/pkg/logger"
+	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/common/config"
+	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/common/docker/service"
+	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/common/teacmd"
+	"github.com/argus-labs/world-cli/v2/internal/pkg/logger"
 	"gotest.tools/v3/assert"
 )
 

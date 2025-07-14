@@ -12,8 +12,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/argus-labs/go-ecs/internal/app/world-cli/common/config"
-	"github.com/argus-labs/go-ecs/internal/pkg/logger"
+	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/common/config"
+	"github.com/argus-labs/world-cli/v2/internal/pkg/logger"
 	"github.com/google/uuid"
 	"github.com/rotisserie/eris"
 	"golang.org/x/mod/modfile"

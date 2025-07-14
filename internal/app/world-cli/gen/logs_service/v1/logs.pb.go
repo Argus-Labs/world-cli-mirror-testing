@@ -147,7 +147,7 @@ const file_logs_service_v1_logs_proto_rawDesc = "" +
 	"\x03log\x18\x01 \x01(\tR\x03log2]\n" +
 	"\vLogsService\x12N\n" +
 	"\aGetLogs\x12\x1f.logs_service.v1.GetLogsRequest\x1a .logs_service.v1.GetLogsResponse0\x01B\xd1\x01\n" +
-	"\x13com.logs_service.v1B\tLogsProtoP\x01ZVgithub.com/argus-labs/go-ecs/internal/app/world-cli/gen/logs_service/v1;logs_servicev1\xa2\x02\x03LXX\xaa\x02\x0eLogsService.V1\xca\x02\x0eLogsService\\V1\xe2\x02\x1aLogsService\\V1\\GPBMetadata\xea\x02\x0fLogsService::V1b\x06proto3"
+	"\x13com.logs_service.v1B\tLogsProtoP\x01ZVgithub.com/argus-labs/world-cli/v2/internal/app/world-cli/gen/logs_service/v1;logs_servicev1\xa2\x02\x03LXX\xaa\x02\x0eLogsService.V1\xca\x02\x0eLogsService\\V1\xe2\x02\x1aLogsService\\V1\\GPBMetadata\xea\x02\x0fLogsService::V1b\x06proto3"
 
 var (
 	file_logs_service_v1_logs_proto_rawDescOnce sync.Once

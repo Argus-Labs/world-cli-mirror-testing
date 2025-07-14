@@ -6,12 +6,12 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/argus-labs/go-ecs/internal/app/world-cli/common/editor"
-	"github.com/argus-labs/go-ecs/internal/app/world-cli/common/teacmd"
-	"github.com/argus-labs/go-ecs/internal/app/world-cli/common/tomlutil"
-	"github.com/argus-labs/go-ecs/internal/pkg/tea/component/program"
-	"github.com/argus-labs/go-ecs/internal/pkg/tea/component/steps"
-	"github.com/argus-labs/go-ecs/internal/pkg/tea/style"
+	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/common/editor"
+	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/common/teacmd"
+	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/common/tomlutil"
+	"github.com/argus-labs/world-cli/v2/internal/pkg/tea/component/program"
+	"github.com/argus-labs/world-cli/v2/internal/pkg/tea/component/steps"
+	"github.com/argus-labs/world-cli/v2/internal/pkg/tea/style"
 	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
 )

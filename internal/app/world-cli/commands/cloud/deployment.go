@@ -10,9 +10,9 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/argus-labs/go-ecs/internal/app/world-cli/models"
-	"github.com/argus-labs/go-ecs/internal/pkg/printer"
-	teaspinner "github.com/argus-labs/go-ecs/internal/pkg/tea/component/spinner"
+	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/models"
+	"github.com/argus-labs/world-cli/v2/internal/pkg/printer"
+	teaspinner "github.com/argus-labs/world-cli/v2/internal/pkg/tea/component/spinner"
 	"github.com/charmbracelet/bubbles/spinner"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/rotisserie/eris"

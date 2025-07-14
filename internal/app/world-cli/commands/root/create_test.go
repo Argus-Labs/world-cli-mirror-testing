@@ -8,11 +8,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/argus-labs/go-ecs/internal/app/world-cli/clients/api"
-	"github.com/argus-labs/go-ecs/internal/app/world-cli/clients/browser"
-	"github.com/argus-labs/go-ecs/internal/app/world-cli/commands/root"
-	cmdsetup "github.com/argus-labs/go-ecs/internal/app/world-cli/controllers/cmd_setup"
-	"github.com/argus-labs/go-ecs/internal/app/world-cli/services/config"
+	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/clients/api"
+	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/clients/browser"
+	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/commands/root"
+	cmdsetup "github.com/argus-labs/world-cli/v2/internal/app/world-cli/controllers/cmd_setup"
+	"github.com/argus-labs/world-cli/v2/internal/app/world-cli/services/config"
 	"github.com/stretchr/testify/suite"
 )
 
