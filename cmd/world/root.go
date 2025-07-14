@@ -7,6 +7,7 @@ import (
 	cmdsetup "github.com/argus-labs/go-ecs/internal/app/world-cli/controllers/cmd_setup"
 )
 
+//nolint:gochecknoglobals // standard kong plugin struct
 var CLI RootCmd
 
 //nolint:lll // must be on one line

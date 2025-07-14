@@ -56,6 +56,7 @@ const (
 	go build -ldflags "-X main.PosthogAPIKey=<POSTHOG_API_KEY>
 							-X main.SentryDsn=<SENTRY_DSN>>"
 */
+//nolint:gochecknoglobals // Only used for ldflags
 var (
 	PosthogAPIKey string
 	SentryDsn     string
@@ -134,7 +135,7 @@ func main() {
 
 	// Set verbose mode if the flag is enabled
 	if CLI.Verbose {
-		logger.VerboseMode = true
+		logger.SetVerboseMode(true)
 	}
 
 	realCtx := contextWithSigterm(context.Background())
