@@ -8,6 +8,7 @@ import (
 	"github.com/argus-labs/go-ecs/internal/app/world-cli/models"
 )
 
+//nolint:gochecknoglobals // standard kong plugin struct
 var CardinalCmdPlugin struct {
 	Cardinal *CardinalCmd `cmd:"" group:"Cardinal Commands:" help:"Manage your Cardinal game shard"`
 }

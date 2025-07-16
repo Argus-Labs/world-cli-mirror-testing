@@ -7,6 +7,7 @@ import (
 	"github.com/argus-labs/go-ecs/internal/app/world-cli/models"
 )
 
+//nolint:gochecknoglobals // standard kong plugin struct
 var ProjectCmdPlugin struct {
 	Project *ProjectCmd `cmd:"" aliases:"proj" group:"Project Commands:"      help:"Manage your projects"`
 }

@@ -7,7 +7,7 @@ import (
 	"github.com/argus-labs/go-ecs/internal/app/world-cli/models"
 )
 
-//nolint:lll // needed to put all the help text in the same line
+//nolint:lll,gochecknoglobals // needed to put all the help text in the same line
 var CloudCmdPlugin struct {
 	Deploy  *DeployCloudCmd  `cmd:"" group:"Cloud Management Commands:" help:"Deploy your World Forge project to a TEST environment in the cloud"`
 	Status  *StatusCloudCmd  `cmd:"" group:"Cloud Management Commands:" help:"Check the status of your deployed World Forge project"`
