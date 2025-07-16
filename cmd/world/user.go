@@ -7,6 +7,7 @@ import (
 	"github.com/argus-labs/go-ecs/internal/app/world-cli/models"
 )
 
+//nolint:gochecknoglobals // standard kong plugin struct
 var UserCmdPlugin struct {
 	User *UserCmd `cmd:""`
 }
